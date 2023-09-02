@@ -1,4 +1,5 @@
 plugins {
+    `kotlin-dsl`
     `java-gradle-plugin`
 }
 
@@ -10,7 +11,7 @@ gradlePlugin {
     plugins {
         create("com.marmatsan.dependencies") {
             id = "com.marmatsan.dependencies"
-            implementationClass = "com.marmatsan.dependencies.Dependencies"
+            implementationClass = "com.marmatsan.dependencies.DependenciesPlugin"
         }
     }
 }
