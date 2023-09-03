@@ -5,7 +5,3 @@ pluginManagement {
     includeBuild("./compose")
     includeBuild("./dependencies")
 }
-
-include(
-    C
-)

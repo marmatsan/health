@@ -3,6 +3,7 @@ package com.marmatsan.dependencies
 import org.gradle.api.Plugin
 import org.gradle.api.initialization.Settings
 import org.gradle.api.initialization.resolve.DependencyResolutionManagement
+import org.w3c.dom.Node
 
 class DependenciesPlugin : Plugin<Settings> {
     override fun apply(settings: Settings) {
@@ -34,7 +35,7 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
 }
 
 // Plugin trees
-private fun createComTree(): TreeNode<NodeData> {
+private fun createPluginsComTree(): TreeNode<NodeData> {
 
     val root = TreeNode(
         NodeData(
@@ -86,7 +87,7 @@ private fun createComTree(): TreeNode<NodeData> {
     return root
 }
 
-private fun createOrgTree(): TreeNode<NodeData> {
+private fun createPluginsOrgTree(): TreeNode<NodeData> {
 
     val root = TreeNode(
         NodeData(
@@ -130,8 +131,147 @@ private fun createOrgTree(): TreeNode<NodeData> {
 }
 
 private val pluginsTrees = listOf(
-    *TreeNode.findLeafNodePaths(createComTree()).toTypedArray(),
-    *TreeNode.findLeafNodePaths(createOrgTree()).toTypedArray()
+    *TreeNode.findLeafNodePaths(createPluginsComTree()).toTypedArray(),
+    *TreeNode.findLeafNodePaths(createPluginsOrgTree()).toTypedArray()
 )
 
 // Library trees
+private fun createLibrariesAndroidXTree(): TreeNode<NodeData> {
+
+    val root = TreeNode(
+        NodeData(
+            group = "androidx"
+        )
+    )
+
+    // Unique named nodes data
+    val activity = NodeData(group = "activity")
+    val animation = NodeData(group = "animation")
+    val compiler = NodeData(group = "compiler")
+    val compose = NodeData(group = "compose")
+    val core = NodeData(group = "core")
+    val datastore = NodeData(group = "datastore")
+    val foundation = NodeData(group = "foundation")
+    val hilt = NodeData(group = "hilt")
+    val ktx = NodeData(group = "ktx")
+    val lifecycle = NodeData(group = "lifecycle")
+    val material3 = NodeData(group = "material3")
+    val navigation = NodeData(group = "navigation")
+    val room = NodeData(group = "root")
+    val runtime = NodeData(group = "runtime")
+    val splashScreen = NodeData(group = "splashscreen")
+    val ui = NodeData(group = "ui")
+
+    // Nodes
+    val activityNode = TreeNode(
+        activity.copy(
+            artifacts = listOf("activity-compose"),
+            version = "1.7.2"
+        )
+    )
+    val animationNode = TreeNode(
+        animation.copy(
+            artifacts = listOf("animation"),
+            version = "1.5.0"
+        )
+    )
+    val composeNode = TreeNode(
+        compose
+    )
+    val foundationNode = TreeNode(
+        foundation.copy(
+            artifacts = listOf("foundation"),
+            version = "1.5.0"
+        )
+    )
+    val material3Node = TreeNode(
+        material3.copy(
+            artifacts = listOf("material3"),
+            version = "1.1.1"
+        )
+    )
+    val runtimeNode = TreeNode(
+        runtime.copy(
+            artifacts = listOf("runtime"),
+            version = "1.5.0"
+        )
+    )
+    val compilerNode = TreeNode(
+        compiler.copy(
+            artifacts = listOf("compiler"),
+            version = "1.5.0"
+        )
+    )
+    val navigationNode = TreeNode(
+        navigation.copy(
+            artifacts = listOf("navigation-compose"),
+            version = "2.6.0"
+        )
+    )
+    val hiltNode = TreeNode(
+        hilt.copy(
+            artifacts = listOf("hilt-navigation-compose"),
+            version = "1.0.0"
+        )
+    )
+    val lifecycleNode = TreeNode(
+        lifecycle.copy(
+            artifacts = listOf("lifecycle-viewmodel-compose"),
+            version = "2.6.1"
+        )
+    )
+    val uiNode = TreeNode(
+        ui.copy(
+            artifacts = listOf(
+                "ui",
+                "ui-tooling",
+                "ui-geometry",
+                "ui-graphics",
+                "ui-unit"
+            ),
+            version = "1.5.0"
+        )
+    )
+
+    // Create dependencies tree
+    root.add(
+        composeNode, navigationNode, hiltNode, activityNode, lifecycleNode
+    )
+    composeNode.add(
+        animationNode, foundationNode, material3Node, runtimeNode, compilerNode, uiNode
+    )
+
+    return root
+}
+
+private fun createLibrariesComTree(): TreeNode<NodeData> {
+
+    val root = TreeNode(
+        NodeData(
+            group = "com"
+        )
+    )
+
+    // Unique named nodes data
+    val google = NodeData(group = "google")
+    val dagger = NodeData(group = "dagger")
+
+
+    // Nodes
+
+    return root
+}
+
+private fun createLibrariesOrgTree(): TreeNode<NodeData> {
+
+    val root = TreeNode(
+        NodeData(
+            group = "com"
+        )
+    )
+
+    // Unique named nodes data
+
+
+    return root
+}
