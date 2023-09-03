@@ -18,10 +18,6 @@ dependencyResolutionManagement {
     }
 }
 
-plugins {
-    id("com.marmatsan.dependencies") apply true
-}
-
 rootProject.name = "Heal-th"
 include(
     ":app"
