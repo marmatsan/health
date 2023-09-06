@@ -8,7 +8,7 @@ repositories {
 }
 
 gradlePlugin {
-    val compose by plugins.creating {
+    plugins.creating {
         id = "com.marmatsan.compose"
         implementationClass = "com.marmatsan.compose.ComposePlugin"
     }
