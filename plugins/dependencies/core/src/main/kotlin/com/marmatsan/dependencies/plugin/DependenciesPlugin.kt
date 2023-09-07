@@ -16,6 +16,11 @@ class DependenciesPlugin : Plugin<Settings> {
 
 private fun DependencyResolutionManagement.buildVersionCatalogs() {
     versionCatalogs {
+        create("libs") {
+            librariesTrees.forEach { library ->
+
+            }
+        }
         create("plugins") {
             pluginsTrees.forEach { plugin ->
                 val parts = plugin.split(":")
@@ -29,114 +34,8 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
                 ).version(pluginVersion)
             }
         }
-        create("libs") {
-            librariesTrees.forEach { library ->
-
-            }
-        }
     }
 }
-
-// Plugin trees
-private fun createPluginsComTree(): TreeNode {
-
-    val root = TreeNode(
-        NodeData(
-            dependencyId = "com"
-        )
-    )
-
-    // Unique named nodes data
-    val android = NodeData(dependencyId = "android") // Duplicate
-    val application = NodeData(dependencyId = "application")
-    val library = NodeData(dependencyId = "library")
-    val google = NodeData(dependencyId = "google")
-    val dagger = NodeData(dependencyId = "dagger")
-    val hilt = NodeData(dependencyId = "hilt")
-    val devTools = NodeData(dependencyId = "devtools")
-    val ksp = NodeData(dependencyId = "ksp")
-
-    // Nodes
-    val comAndroidNode = TreeNode(android.copy())
-    val applicationNode = TreeNode(application.copy(version = "8.0.2"))
-    val libraryNode = TreeNode(library.copy(version = "8.0.2"))
-    val googleNode = TreeNode(google)
-    val daggerNode = TreeNode(dagger)
-    val hiltNode = TreeNode(hilt)
-    val hiltAndroidNode = TreeNode(android.copy(version = "2.48"))
-    val devToolsNode = TreeNode(devTools)
-    val kspNode = TreeNode(ksp.copy(version = "1.9.0-1.0.12"))
-
-    // Create dependencies tree
-    root.add(
-        comAndroidNode, googleNode
-    )
-    comAndroidNode.add(
-        applicationNode, libraryNode
-    )
-    googleNode.add(
-        daggerNode, devToolsNode
-    )
-    daggerNode.add(
-        hiltNode
-    )
-    hiltNode.add(
-        hiltAndroidNode
-    )
-    devToolsNode.add(
-        kspNode
-    )
-
-    return root
-}
-
-private fun createPluginsOrgTree(): TreeNode {
-
-    val root = TreeNode(
-        NodeData(
-            dependencyId = "org"
-        )
-    )
-
-    // Unique named nodes data
-    val jetbrains = NodeData(dependencyId = "jetbrains")
-    val kotlin = NodeData(dependencyId = "kotlin")
-    val android = NodeData(dependencyId = "android")
-    val jvm = NodeData(dependencyId = "jvm")
-    val plugin = NodeData(dependencyId = "plugin")
-    val parcelize = NodeData(dependencyId = "parcelize")
-    val serialization = NodeData(dependencyId = "serialization")
-
-    // Nodes
-    val jetbrainsNode = TreeNode(jetbrains)
-    val kotlinNode = TreeNode(kotlin)
-    val androidNode = TreeNode(android.copy(version = "1.9.0"))
-    val jvmNode = TreeNode(jvm.copy(version = "1.9.0"))
-    val pluginNode = TreeNode(plugin)
-    val parcelizeNode = TreeNode(parcelize.copy(version = "1.9.0"))
-    val serializationNode = TreeNode(serialization.copy(version = "1.9.0"))
-
-    // Create dependencies tree
-    root.add(
-        jetbrainsNode
-    )
-    jetbrainsNode.add(
-        kotlinNode
-    )
-    kotlinNode.add(
-        androidNode, jvmNode, pluginNode
-    )
-    pluginNode.add(
-        parcelizeNode, serializationNode
-    )
-
-    return root
-}
-
-private val pluginsTrees = listOf(
-    *TreeNode.findLeafNodePaths(createPluginsComTree()).toTypedArray(),
-    *TreeNode.findLeafNodePaths(createPluginsOrgTree()).toTypedArray()
-)
 
 // Library trees
 
@@ -250,4 +149,105 @@ private fun createLibrariesAndroidXTree(): TreeNode {
 
 private val librariesTrees = listOf(
     *TreeNode.findLeafNodePaths(createLibrariesAndroidXTree()).toTypedArray()
+)
+
+// Plugin trees
+private fun createPluginsComTree(): TreeNode {
+
+    val root = TreeNode(
+        NodeData(
+            dependencyId = "com"
+        )
+    )
+
+    // Unique named nodes data
+    val android = NodeData(dependencyId = "android") // Duplicate
+    val application = NodeData(dependencyId = "application")
+    val library = NodeData(dependencyId = "library")
+    val google = NodeData(dependencyId = "google")
+    val dagger = NodeData(dependencyId = "dagger")
+    val hilt = NodeData(dependencyId = "hilt")
+    val devTools = NodeData(dependencyId = "devtools")
+    val ksp = NodeData(dependencyId = "ksp")
+
+    // Nodes
+    val comAndroidNode = TreeNode(android.copy())
+    val applicationNode = TreeNode(application.copy(version = "8.0.2"))
+    val libraryNode = TreeNode(library.copy(version = "8.0.2"))
+    val googleNode = TreeNode(google)
+    val daggerNode = TreeNode(dagger)
+    val hiltNode = TreeNode(hilt)
+    val hiltAndroidNode = TreeNode(android.copy(version = "2.48"))
+    val devToolsNode = TreeNode(devTools)
+    val kspNode = TreeNode(ksp.copy(version = "1.9.0-1.0.12"))
+
+    // Create dependencies tree
+    root.add(
+        comAndroidNode, googleNode
+    )
+    comAndroidNode.add(
+        applicationNode, libraryNode
+    )
+    googleNode.add(
+        daggerNode, devToolsNode
+    )
+    daggerNode.add(
+        hiltNode
+    )
+    hiltNode.add(
+        hiltAndroidNode
+    )
+    devToolsNode.add(
+        kspNode
+    )
+
+    return root
+}
+
+private fun createPluginsOrgTree(): TreeNode {
+
+    val root = TreeNode(
+        NodeData(
+            dependencyId = "org"
+        )
+    )
+
+    // Unique named nodes data
+    val jetbrains = NodeData(dependencyId = "jetbrains")
+    val kotlin = NodeData(dependencyId = "kotlin")
+    val android = NodeData(dependencyId = "android")
+    val jvm = NodeData(dependencyId = "jvm")
+    val plugin = NodeData(dependencyId = "plugin")
+    val parcelize = NodeData(dependencyId = "parcelize")
+    val serialization = NodeData(dependencyId = "serialization")
+
+    // Nodes
+    val jetbrainsNode = TreeNode(jetbrains)
+    val kotlinNode = TreeNode(kotlin)
+    val androidNode = TreeNode(android.copy(version = "1.9.0"))
+    val jvmNode = TreeNode(jvm.copy(version = "1.9.0"))
+    val pluginNode = TreeNode(plugin)
+    val parcelizeNode = TreeNode(parcelize.copy(version = "1.9.0"))
+    val serializationNode = TreeNode(serialization.copy(version = "1.9.0"))
+
+    // Create dependencies tree
+    root.add(
+        jetbrainsNode
+    )
+    jetbrainsNode.add(
+        kotlinNode
+    )
+    kotlinNode.add(
+        androidNode, jvmNode, pluginNode
+    )
+    pluginNode.add(
+        parcelizeNode, serializationNode
+    )
+
+    return root
+}
+
+private val pluginsTrees = listOf(
+    *TreeNode.findLeafNodePaths(createPluginsComTree()).toTypedArray(),
+    *TreeNode.findLeafNodePaths(createPluginsOrgTree()).toTypedArray()
 )

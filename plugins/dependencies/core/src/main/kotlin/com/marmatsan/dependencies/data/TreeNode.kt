@@ -1,7 +1,7 @@
 package com.marmatsan.dependencies.data
 
 data class TreeNode(
-    val nodeData: NodeData
+    val data: NodeData
 ) {
     private val children: MutableList<TreeNode> by lazy {
         mutableListOf()
@@ -18,22 +18,18 @@ data class TreeNode(
             path: MutableList<String> = mutableListOf(),
             result: MutableList<String> = mutableListOf()
         ): MutableList<String> {
-            val nodeData = node.nodeData
-            path.add(nodeData.dependencyId)
+            val nodeData = node.data
+            path.add("${nodeData.dependencyId}.")
 
             if (node.isLeaf()) {
-                val joinedPath = path.joinToString(separator = "") { it }
+                val joinedPathWithoutLastDot = path.joinToString(separator = "") { it }.removeSuffix(suffix = ".")
                 val version = nodeData.version
 
+                // If the node data has artifacts, it is a library. If not, it is a plugin
                 nodeData.artifacts?.forEach { artifact ->
-                    // Library
-                    result.add("$joinedPath:${artifact}:$version")
-                } ?:
-                // Plugin
-                result.add("$joinedPath:$version")
-
+                    result.add("$joinedPathWithoutLastDot:${artifact}:$version")
+                } ?: result.add("$joinedPathWithoutLastDot:$version")
             } else {
-                path.add(".")
                 for (child in node.children) {
                     findLeafNodePaths(
                         node = child,
