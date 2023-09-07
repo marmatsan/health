@@ -1,34 +1,40 @@
 package com.marmatsan.dependencies.data
 
-data class TreeNode(
-    val data: NodeData
+class TreeNode<T>(
+    val data: T
 ) {
-    private val children: MutableList<TreeNode> by lazy {
+    private val children: MutableList<TreeNode<T>> by lazy {
         mutableListOf()
     }
 
-    fun add(vararg children: TreeNode) = this.children.addAll(children)
+    fun add(vararg children: TreeNode<T>) = this.children.addAll(children)
 
     private fun hasChildren(): Boolean = children.size >= 1
     private fun isLeaf(): Boolean = !hasChildren()
 
     companion object {
         fun findLeafNodePaths(
-            node: TreeNode,
+            node: TreeNode<out NodeData>,
             path: MutableList<String> = mutableListOf(),
             result: MutableList<String> = mutableListOf()
-        ): MutableList<String> {
+        ): List<String> {
             val nodeData = node.data
             path.add("${nodeData.dependencyId}.")
 
             if (node.isLeaf()) {
                 val joinedPathWithoutLastDot = path.joinToString(separator = "") { it }.removeSuffix(suffix = ".")
                 val version = nodeData.version
+                when (nodeData) {
+                    is NodeData.LibraryData -> {
+                        nodeData.artifacts?.forEach { artifact ->
+                            result.add("$joinedPathWithoutLastDot:${artifact}:$version")
+                        }
+                    }
 
-                // If the node data has artifacts, it is a library. If not, it is a plugin
-                nodeData.artifacts?.forEach { artifact ->
-                    result.add("$joinedPathWithoutLastDot:${artifact}:$version")
-                } ?: result.add("$joinedPathWithoutLastDot:$version")
+                    is NodeData.PluginData -> {
+                        result.add("$joinedPathWithoutLastDot:$version")
+                    }
+                }
             } else {
                 for (child in node.children) {
                     findLeafNodePaths(
