@@ -8,8 +8,10 @@ repositories {
 }
 
 gradlePlugin {
-    plugins.creating {
-        id = "com.marmatsan.dependencies"
-        implementationClass = "com.marmatsan.dependencies.DependenciesPlugin"
+    plugins {
+        create("com.marmatsan.dependencies") {
+            id = "com.marmatsan.dependencies"
+            implementationClass = "com.marmatsan.dependencies.plugin.DependenciesPlugin"
+        }
     }
 }

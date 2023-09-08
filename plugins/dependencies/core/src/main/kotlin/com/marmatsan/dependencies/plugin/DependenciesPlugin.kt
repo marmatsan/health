@@ -1,7 +1,8 @@
 package com.marmatsan.dependencies.plugin
 
-import com.marmatsan.dependencies.data.DependenciesHashMap
-import com.marmatsan.dependencies.data.NodeData.LibraryData
+import com.marmatsan.dependencies.data.Dependency
+import com.marmatsan.dependencies.data.NodeData.Library as Library
+import com.marmatsan.dependencies.data.NodeData.ArtifactsGroup as ArtifactsGroup
 import com.marmatsan.dependencies.data.TreeNode
 import org.gradle.api.Plugin
 import org.gradle.api.initialization.Settings
@@ -18,8 +19,42 @@ class DependenciesPlugin : Plugin<Settings> {
 private fun DependencyResolutionManagement.buildVersionCatalogs() {
     versionCatalogs {
         create("libs") {
-            librariesTrees.forEach { library ->
+            val androidXLibraries = TreeNode.getDependencies(androidXLibraryTree())
 
+            androidXLibraries.forEach { library -> // TODO: Library has to be always of type Dependency.Library, but it's of type Dependency
+                if (library is Dependency.Library) {
+                    val libraryGroup = library.group
+                    val artifactsGroups = library.artifactsGroups
+
+                    if (artifactsGroups?.size == 1 && artifactsGroups.first().artifacts.size == 1) {
+                        val libraryArtifact = artifactsGroups.first().artifacts.first()
+                        val libraryVersion = artifactsGroups.first().version
+                        library(
+                            libraryGroup,
+                            "$libraryGroup:$libraryArtifact:$libraryVersion"
+                        )
+                    } else {
+                        artifactsGroups?.forEach { artifactsGroup ->
+                            val bundleName = "$libraryGroup.bundle.${artifactsGroup.name}"
+                            version(
+                                bundleName,
+                                artifactsGroup.version
+                            )
+                            artifactsGroup.artifacts.forEach { artifact ->
+                                library(
+                                    artifact,
+                                    libraryGroup,
+                                    artifact
+                                ).versionRef(bundleName)
+                            }
+                            bundle(
+                                bundleName,
+                                artifactsGroup.artifacts
+                            )
+                        }
+                    }
+
+                }
             }
         }
     }
@@ -27,27 +62,27 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
 
 // Library trees
 
-private fun createLibrariesAndroidXTree(): TreeNode<LibraryData> {
+private fun androidXLibraryTree(): TreeNode<Library> {
 
     val rootNode = TreeNode(
-        LibraryData(
-            dependencyId = "androidx"
+        Library(
+            group = "androidx"
         )
     )
 
     /* Unique Named Nodes */
 
-    val activity = LibraryData(dependencyId = "activity")
-    val compose = LibraryData(dependencyId = "compose")
-    val hilt = LibraryData(dependencyId = "hilt")
-    val lifecycle = LibraryData(dependencyId = "lifecycle")
-    val navigation = LibraryData(dependencyId = "navigation")
-    val animation = LibraryData(dependencyId = "animation")
-    val compiler = LibraryData(dependencyId = "compiler")
-    val foundation = LibraryData(dependencyId = "foundation")
-    val material3 = LibraryData(dependencyId = "material3")
-    val runtime = LibraryData(dependencyId = "runtime")
-    val ui = LibraryData(dependencyId = "ui")
+    val activity = Library(group = "activity")
+    val compose = Library(group = "compose")
+    val hilt = Library(group = "hilt")
+    val lifecycle = Library(group = "lifecycle")
+    val navigation = Library(group = "navigation")
+    val animation = Library(group = "animation")
+    val compiler = Library(group = "compiler")
+    val foundation = Library(group = "foundation")
+    val material3 = Library(group = "material3")
+    val runtime = Library(group = "runtime")
+    val ui = Library(group = "ui")
 
     /* Duplicates */
 
@@ -57,67 +92,121 @@ private fun createLibrariesAndroidXTree(): TreeNode<LibraryData> {
     // Level 1
     val activityNode = TreeNode(
         activity.copy(
-            version = "1.7.2",
-            artifacts = listOf("activity-compose")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "activity",
+                    artifacts = listOf("activity-compose"),
+                    version = "1.7.2"
+                )
+            )
         )
     )
+
     val composeNode = TreeNode(
         compose.copy()
     )
+
     val hiltNode = TreeNode(
         hilt.copy(
-            version = "1.0.0",
-            artifacts = listOf("hilt-navigation-compose")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "hilt",
+                    artifacts = listOf("hilt-navigation-compose"),
+                    version = "1.0.0"
+                )
+            )
         )
     )
+
     val lifecycleNode = TreeNode(
         lifecycle.copy(
-            version = "2.6.1",
-            artifacts = listOf("lifecycle-viewmodel-compose")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "lifecycle",
+                    artifacts = listOf("lifecycle-viewmodel-compose"),
+                    version = "2.6.1"
+                )
+            )
         )
     )
+
     val navigationNode = TreeNode(
         navigation.copy(
-            version = "2.6.0",
-            artifacts = listOf("navigation-compose")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "navigation",
+                    artifacts = listOf("navigation-compose"),
+                    version = "2.6.0"
+                )
+            )
         )
     )
 
     // Level 2
     val animationNode = TreeNode(
         animation.copy(
-            version = "1.5.0",
-            artifacts = listOf("animation")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "animation",
+                    artifacts = listOf("animation"),
+                    version = "1.5.0"
+                )
+            )
         )
     )
     val compilerNode = TreeNode(
         compiler.copy(
-            version = "1.5.0",
-            artifacts = listOf("compiler")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "compiler",
+                    artifacts = listOf("compiler"),
+                    version = "1.0.0"
+                )
+            )
         )
     )
     val foundationNode = TreeNode(
         foundation.copy(
-            version = "1.5.0",
-            artifacts = listOf("foundation")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "foundation",
+                    artifacts = listOf("foundation"),
+                    version = "1.5.0"
+                )
+            )
         )
     )
     val material3Node = TreeNode(
         material3.copy(
-            version = "1.1.1",
-            artifacts = listOf("material3")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "material3",
+                    artifacts = listOf("material3"),
+                    version = "1.1.1"
+                )
+            )
         )
     )
     val runtimeNode = TreeNode(
         runtime.copy(
-            version = "1.5.0",
-            artifacts = listOf("runtime")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "runtime",
+                    artifacts = listOf("runtime"),
+                    version = "1.5.0"
+                )
+            )
         )
     )
     val uiNode = TreeNode(
         ui.copy(
-            version = "1.5.0",
-            artifacts = listOf("ui", "ui-tooling", "ui-geometry", "ui-graphics", "ui-unit")
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "ui",
+                    artifacts = listOf("ui", "ui-tooling", "ui-geometry", "ui-graphics", "ui-unit"),
+                    version = "1.5.0"
+                )
+            )
         )
     )
 
@@ -135,6 +224,4 @@ private fun createLibrariesAndroidXTree(): TreeNode<LibraryData> {
     return rootNode
 }
 
-private val librariesTrees = listOf(
-    *TreeNode.findLeafNodePaths(createLibrariesAndroidXTree()).toTypedArray()
-)
+// Plugins trees

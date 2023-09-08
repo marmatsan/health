@@ -1,6 +1,6 @@
 package com.marmatsan.dependencies.data
 
-class TreeNode<T>(
+class TreeNode<T : NodeData>(
     val data: T
 ) {
     private val children: MutableList<TreeNode<T>> by lazy {
@@ -13,31 +13,39 @@ class TreeNode<T>(
     private fun isLeaf(): Boolean = !hasChildren()
 
     companion object {
-        fun findLeafNodePaths(
+        fun getDependencies(
             node: TreeNode<out NodeData>,
             path: MutableList<String> = mutableListOf(),
-            result: MutableList<String> = mutableListOf()
-        ): List<String> {
+            result: MutableList<Dependency> = mutableListOf()
+        ): List<Dependency> {
             val nodeData = node.data
-            path.add("${nodeData.dependencyId}.")
+            path.add("${nodeData.id}.")
 
             if (node.isLeaf()) {
                 val joinedPathWithoutLastDot = path.joinToString(separator = "") { it }.removeSuffix(suffix = ".")
-                val version = nodeData.version
                 when (nodeData) {
-                    is NodeData.LibraryData -> {
-                        nodeData.artifacts?.forEach { artifact ->
-                            result.add("$joinedPathWithoutLastDot:${artifact}:$version")
-                        }
+                    is NodeData.Library -> {
+                        result.add(
+                            Dependency.Library(
+                                group = joinedPathWithoutLastDot,
+                                artifactsGroups = nodeData.artifactsGroups?.map { artifactsGroup ->
+                                    Dependency.ArtifactsGroup(
+                                        name = artifactsGroup.name,
+                                        artifacts = artifactsGroup.artifacts,
+                                        version = artifactsGroup.version
+                                    )
+                                }
+                            )
+                        )
                     }
 
-                    is NodeData.PluginData -> {
-                        result.add("$joinedPathWithoutLastDot:$version")
+                    is NodeData.Plugin -> {
+                        // TODO
                     }
                 }
             } else {
-                for (child in node.children) {
-                    findLeafNodePaths(
+                node.children.forEach { child ->
+                    getDependencies(
                         node = child,
                         path = path,
                         result = result

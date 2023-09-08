@@ -1,6 +1,6 @@
 package com.marmatsan.dependencies.data
 
-sealed class NodeData(
+sealed class Dependency(
     open val id: String
 ) {
 
@@ -13,13 +13,13 @@ sealed class NodeData(
     data class Library(
         val group: String,
         val artifactsGroups: List<ArtifactsGroup>? = null,
-    ) : NodeData(
+    ) : Dependency(
         id = group
     )
 
     data class Plugin(
         override val id: String,
-    ) : NodeData(
+    ) : Dependency(
         id = id
     )
 }
