@@ -1,7 +1,9 @@
 package com.marmatsan.dependencies.plugin
 
 import com.marmatsan.dependencies.data.Dependency
-import com.marmatsan.dependencies.data.NodeData.Library as Library
+import com.marmatsan.dependencies.data.NodeData.Library as LibraryNodeData
+import com.marmatsan.dependencies.data.NodeData.Plugin as PluginNodeData
+
 import com.marmatsan.dependencies.data.NodeData.ArtifactsGroup as ArtifactsGroup
 import com.marmatsan.dependencies.data.TreeNode
 import org.gradle.api.Plugin
@@ -57,32 +59,55 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
                 }
             }
         }
+        create("plugins") {
+            val comPlugins = TreeNode.getDependencies(comPluginTree())
+
+            comPlugins.forEach { plugin -> // TODO: Plugin has to be always of type Dependency.Plugin, but it's of type Dependency
+                if (plugin is Dependency.Plugin && plugin.version != null) { // TODO: Plugin version is always not null here
+                    plugin(
+                        plugin.id,
+                        plugin.id
+                    ).version(plugin.version)
+                }
+            }
+
+            val orgPlugins = TreeNode.getDependencies(orgPluginTree())
+
+            orgPlugins.forEach { plugin -> // TODO: Improve repetition of code
+                if (plugin is Dependency.Plugin && plugin.version != null) {
+                    plugin(
+                        plugin.id,
+                        plugin.id
+                    ).version(plugin.version)
+                }
+            }
+        }
     }
 }
 
 // Library trees
 
-private fun androidXLibraryTree(): TreeNode<Library> {
+private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
 
     val rootNode = TreeNode(
-        Library(
+        LibraryNodeData(
             group = "androidx"
         )
     )
 
     /* Unique Named Nodes */
 
-    val activity = Library(group = "activity")
-    val compose = Library(group = "compose")
-    val hilt = Library(group = "hilt")
-    val lifecycle = Library(group = "lifecycle")
-    val navigation = Library(group = "navigation")
-    val animation = Library(group = "animation")
-    val compiler = Library(group = "compiler")
-    val foundation = Library(group = "foundation")
-    val material3 = Library(group = "material3")
-    val runtime = Library(group = "runtime")
-    val ui = Library(group = "ui")
+    val activity = LibraryNodeData(group = "activity")
+    val compose = LibraryNodeData(group = "compose")
+    val hilt = LibraryNodeData(group = "hilt")
+    val lifecycle = LibraryNodeData(group = "lifecycle")
+    val navigation = LibraryNodeData(group = "navigation")
+    val animation = LibraryNodeData(group = "animation")
+    val compiler = LibraryNodeData(group = "compiler")
+    val foundation = LibraryNodeData(group = "foundation")
+    val material3 = LibraryNodeData(group = "material3")
+    val runtime = LibraryNodeData(group = "runtime")
+    val ui = LibraryNodeData(group = "ui")
 
     /* Duplicates */
 
@@ -225,3 +250,102 @@ private fun androidXLibraryTree(): TreeNode<Library> {
 }
 
 // Plugins trees
+
+private fun comPluginTree(): TreeNode<PluginNodeData> {
+
+    val rootNode = TreeNode(
+        PluginNodeData(
+            id = "com"
+        )
+    )
+
+    /* Unique Named Nodes */
+
+    val android = PluginNodeData(id = "android")
+    val application = PluginNodeData(id = "application")
+
+    /* Duplicates */
+
+
+    /* Tree Nodes */
+
+    // Level 1
+    val androidNode = TreeNode(
+        android.copy()
+    )
+
+    // Level 2
+    val applicationNode = TreeNode(
+        application.copy(
+            version = "8.0.2"
+        )
+    )
+
+    /* Create tree */
+
+    // Level 1
+    rootNode.add(
+        androidNode
+    )
+    // Level 2
+    androidNode.add(
+        applicationNode
+    )
+
+    return rootNode
+}
+
+private fun orgPluginTree(): TreeNode<PluginNodeData> {
+
+    val rootNode = TreeNode(
+        PluginNodeData(
+            id = "org"
+        )
+    )
+
+    /* Unique Named Nodes */
+
+    val jetbrains = PluginNodeData(id = "jetbrains")
+    val kotlin = PluginNodeData(id = "kotlin")
+    val android = PluginNodeData(id = "android")
+
+    /* Duplicates */
+
+
+    /* Tree Nodes */
+
+    // Level 1
+    val jetbrainsNode = TreeNode(
+        jetbrains.copy()
+    )
+
+    // Level 2
+    val kotlinNode = TreeNode(
+        kotlin.copy()
+    )
+
+    // Level 3
+    val androidNode = TreeNode(
+        android.copy(
+            version = "1.9.0"
+        )
+    )
+
+    /* Create tree */
+
+    // Level 1
+    rootNode.add(
+        jetbrainsNode
+    )
+    // Level 2
+    jetbrainsNode.add(
+        kotlinNode
+    )
+
+    // Level 3
+    kotlinNode.add(
+        androidNode
+    )
+
+    return rootNode
+}

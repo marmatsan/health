@@ -5,7 +5,7 @@ sealed class Dependency(
 ) {
 
     data class ArtifactsGroup(
-        val name : String,
+        val name: String,
         val artifacts: List<String>,
         val version: String
     )
@@ -19,6 +19,7 @@ sealed class Dependency(
 
     data class Plugin(
         override val id: String,
+        val version: String? = null
     ) : Dependency(
         id = id
     )

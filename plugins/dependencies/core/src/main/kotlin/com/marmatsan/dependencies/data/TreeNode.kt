@@ -40,7 +40,12 @@ class TreeNode<T : NodeData>(
                     }
 
                     is NodeData.Plugin -> {
-                        // TODO
+                        result.add(
+                            Dependency.Plugin(
+                                id = joinedPathWithoutLastDot,
+                                version = nodeData.version
+                            )
+                        )
                     }
                 }
             } else {

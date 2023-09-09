@@ -19,6 +19,7 @@ sealed class NodeData(
 
     data class Plugin(
         override val id: String,
+        val version : String? = null
     ) : NodeData(
         id = id
     )

@@ -3,8 +3,9 @@ package com.marmatsan.compose
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
-import org.gradle.api.Project
 import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 class ComposePlugin: Plugin<Project> {
     override fun apply(project: Project) {
@@ -34,6 +35,10 @@ class ComposePlugin: Plugin<Project> {
             composeOptions {
                 kotlinCompilerExtensionVersion = "1.5.0"
             }
+
+        }
+
+        project.dependencies {
 
         }
 
