@@ -99,6 +99,7 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
 
     val activity = LibraryNodeData(group = "activity")
     val compose = LibraryNodeData(group = "compose")
+    val core = LibraryNodeData(group = "core")
     val hilt = LibraryNodeData(group = "hilt")
     val lifecycle = LibraryNodeData(group = "lifecycle")
     val navigation = LibraryNodeData(group = "navigation")
@@ -131,6 +132,18 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
         compose.copy()
     )
 
+    val coreNode = TreeNode(
+        core.copy(
+            artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "core",
+                    artifacts = listOf("core-ktx"),
+                    version = "1.10.1"
+                )
+            )
+        )
+    )
+
     val hiltNode = TreeNode(
         hilt.copy(
             artifactsGroups = listOf(
@@ -148,7 +161,7 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
             artifactsGroups = listOf(
                 ArtifactsGroup(
                     name = "lifecycle",
-                    artifacts = listOf("lifecycle-viewmodel-compose"),
+                    artifacts = listOf("lifecycle-viewmodel-compose", "lifecycle-runtime-ktx"),
                     version = "2.6.1"
                 )
             )
@@ -228,7 +241,14 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
             artifactsGroups = listOf(
                 ArtifactsGroup(
                     name = "ui",
-                    artifacts = listOf("ui", "ui-tooling", "ui-geometry", "ui-graphics", "ui-unit"),
+                    artifacts = listOf(
+                        "ui",
+                        "ui-tooling",
+                        "ui-tooling-preview",
+                        "ui-geometry",
+                        "ui-graphics",
+                        "ui-unit"
+                    ),
                     version = "1.5.0"
                 )
             )
@@ -239,7 +259,7 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
 
     // Level 1
     rootNode.add(
-        activityNode, composeNode, hiltNode, lifecycleNode, navigationNode
+        activityNode, composeNode, coreNode, hiltNode, lifecycleNode, navigationNode
     )
     // Level 2
     composeNode.add(
@@ -277,7 +297,7 @@ private fun comPluginTree(): TreeNode<PluginNodeData> {
     // Level 2
     val applicationNode = TreeNode(
         application.copy(
-            version = "8.0.2"
+            version = "8.1.0-rc01"
         )
     )
 

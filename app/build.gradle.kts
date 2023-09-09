@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.marmatsan.heal_th"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.marmatsan.heal_th"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -46,15 +46,11 @@ android {
 }
 
 dependencies {
-
-    /*
-    implementation(libs.core.ktx)
+    implementation(libs.androidx.core)
     implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
+    implementation(libs.androidx.activity)
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
-     */
+    implementation(libs.androidx.compose.material3)
 }
