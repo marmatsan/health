@@ -47,10 +47,10 @@ android {
 
 dependencies {
     implementation(libs.androidx.core)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity)
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.lifecycle.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity) // TODO: Belongs to Compose plugin
+    implementation(libs.androidx.compose.ui.ui) // TODO: Belongs to Compose plugin
+    implementation(libs.androidx.compose.ui.ui.graphics) // TODO: Belongs to Compose plugin
+    implementation(libs.androidx.compose.ui.ui.tooling.preview) // TODO: Belongs to Compose plugin
+    implementation(libs.androidx.compose.material3) // TODO: Belongs to Compose plugin
 }

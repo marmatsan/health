@@ -37,21 +37,24 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
                         )
                     } else {
                         artifactsGroups?.forEach { artifactsGroup ->
-                            val bundleName = "$libraryGroup.bundle.${artifactsGroup.name}"
+                            val bundleName = "$libraryGroup.${artifactsGroup.name}"
                             version(
                                 bundleName,
                                 artifactsGroup.version
                             )
+                            val artifactsAliases = mutableListOf<String>()
                             artifactsGroup.artifacts.forEach { artifact ->
+                                val artifactAlias = "$libraryGroup.$artifact"
                                 library(
-                                    artifact,
+                                    artifactAlias,
                                     libraryGroup,
                                     artifact
                                 ).versionRef(bundleName)
+                                artifactsAliases.add(artifactAlias)
                             }
                             bundle(
                                 bundleName,
-                                artifactsGroup.artifacts
+                                artifactsAliases
                             )
                         }
                     }
@@ -156,7 +159,7 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
         )
     )
 
-    val lifecycleNode = TreeNode(
+        val lifecycleNode = TreeNode(
         lifecycle.copy(
             artifactsGroups = listOf(
                 ArtifactsGroup(
