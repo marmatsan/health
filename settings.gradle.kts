@@ -6,14 +6,13 @@ pluginManagement {
     }
     // Custom Gradle plugins
     includeBuild("./plugins")
-    includeBuild("./plugins/dependencies")
 }
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
     id("com.marmatsan.dependencies") apply true
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)

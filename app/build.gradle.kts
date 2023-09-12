@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.marmatsan.compose")
 }
 
 android {
@@ -15,9 +16,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -32,12 +30,6 @@ android {
     kotlinOptions {
         jvmTarget = "19"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -48,9 +40,4 @@ android {
 dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity) // TODO: Belongs to Compose plugin
-    implementation(libs.androidx.compose.ui.ui) // TODO: Belongs to Compose plugin
-    implementation(libs.androidx.compose.ui.ui.graphics) // TODO: Belongs to Compose plugin
-    implementation(libs.androidx.compose.ui.ui.tooling.preview) // TODO: Belongs to Compose plugin
-    implementation(libs.androidx.compose.material3) // TODO: Belongs to Compose plugin
 }

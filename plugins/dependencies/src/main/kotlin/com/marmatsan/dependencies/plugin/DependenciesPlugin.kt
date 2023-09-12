@@ -159,7 +159,7 @@ private fun androidXLibraryTree(): TreeNode<LibraryNodeData> {
         )
     )
 
-        val lifecycleNode = TreeNode(
+    val lifecycleNode = TreeNode(
         lifecycle.copy(
             artifactsGroups = listOf(
                 ArtifactsGroup(
@@ -286,6 +286,9 @@ private fun comPluginTree(): TreeNode<PluginNodeData> {
 
     val android = PluginNodeData(id = "android")
     val application = PluginNodeData(id = "application")
+    val marmatsan = PluginNodeData(id = "marmatsan")
+    val compose = PluginNodeData(id = "compose")
+    val dependencies = PluginNodeData(id = "dependencies")
 
     /* Duplicates */
 
@@ -296,23 +299,36 @@ private fun comPluginTree(): TreeNode<PluginNodeData> {
     val androidNode = TreeNode(
         android.copy()
     )
+    val marmatsanNode = TreeNode(
+        marmatsan.copy()
+    )
 
     // Level 2
     val applicationNode = TreeNode(
         application.copy(
-            version = "8.1.0-rc01"
+            version = "8.0.2"
         )
+    )
+    val composeNode = TreeNode(
+        compose.copy()
+    )
+    val dependenciesNode = TreeNode(
+        dependencies.copy()
     )
 
     /* Create tree */
 
     // Level 1
     rootNode.add(
-        androidNode
+        androidNode, marmatsanNode
     )
     // Level 2
     androidNode.add(
         applicationNode
+    )
+
+    marmatsanNode.add(
+        composeNode, dependenciesNode
     )
 
     return rootNode
