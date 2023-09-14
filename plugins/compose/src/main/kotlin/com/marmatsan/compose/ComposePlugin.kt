@@ -47,16 +47,12 @@ class ComposePlugin : Plugin<Project> {
 
         }
 
-        val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs")
-
-        val libraryAliases = libs.libraryAliases
-        println(libraryAliases)
-
-        val bundles = libs.bundleAliases
-        println(bundles)
+        val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libsCompose")
 
         project.dependencies {
-
+            libs.libraryAliases.forEach { libraryAlias ->
+                implementation(libs.getLibrary(libraryAlias))
+            }
         }
 
     }
@@ -65,6 +61,6 @@ class ComposePlugin : Plugin<Project> {
         return findLibrary(libraryAlias).get().get().toString()
     }
 
-    private fun DependencyHandler.implementation(dependencyNotation: String): Dependency? =
+    private fun DependencyHandlerScope.implementation(dependencyNotation: String): Dependency? =
         add("implementation", dependencyNotation)
 }
