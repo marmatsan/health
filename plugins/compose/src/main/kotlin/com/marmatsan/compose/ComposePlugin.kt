@@ -14,8 +14,6 @@ import org.gradle.kotlin.dsl.*
 class ComposePlugin : Plugin<Project> {
     override fun apply(project: Project) {
 
-        project.plugins.apply(VersionCatalogPlugin::class)
-
         val androidExtension = when {
             project.plugins.hasPlugin(AppPlugin::class) -> {
                 project.extensions.getByType<ApplicationExtension>()

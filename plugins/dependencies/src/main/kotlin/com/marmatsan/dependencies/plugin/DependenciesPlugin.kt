@@ -19,6 +19,8 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
         create("libs") {
             val androidXLibraries = TreeNode.getDependencies(androidXLibraryTree())
             createLibraries(androidXLibraries)
+            val comLibraries = TreeNode.getDependencies(comLibraryTree())
+            createLibraries(comLibraries)
         }
         create("libsCompose") {
             val androidXComposeLibraryTree = TreeNode.getDependencies(androidXComposeLibraryTree())

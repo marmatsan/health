@@ -238,6 +238,64 @@ fun androidXComposeLibraryTree(): TreeNode<NodeData.Library> {
     return rootNode
 }
 
+fun comLibraryTree(): TreeNode<NodeData.Library> {
+
+    val rootNode = TreeNode(
+        NodeData.Library(
+            group = "com"
+        )
+    )
+
+    //region Unique Named Nodes
+
+    val google = NodeData.Library(group = "google")
+    val dagger = NodeData.Library(group = "dagger")
+
+    //endregion Unique Named Nodes
+
+    //region Tree Nodes
+
+    //region Level 1
+
+    val googleNode = TreeNode(
+        google.copy()
+    )
+
+    //endregion Level 1
+
+    //region Level 2
+
+    val daggerNode = TreeNode(
+        dagger.copy(
+            artifactsGroups = listOf(
+                NodeData.ArtifactsGroup(
+                    name = "dagger",
+                    artifacts = listOf("hilt-android", "hilt-android-compiler"),
+                    version = "2.48"
+                )
+            )
+        )
+    )
+
+    //region Level 2
+
+    //endregion Tree Nodes
+
+    //region Create tree
+
+    rootNode.add(
+        googleNode
+    )
+
+    googleNode.add(
+        daggerNode
+    )
+
+    //endregion Create tree
+
+    return rootNode
+}
+
 // Plugins trees
 
 fun comPluginTree(): TreeNode<NodeData.Plugin> {
@@ -251,19 +309,28 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
     /* Unique Named Nodes */
 
     val android = NodeData.Plugin(id = "android")
+    val google = NodeData.Plugin(id = "google")
+    val dagger = NodeData.Plugin(id = "dagger")
+    val hilt = NodeData.Plugin(id = "hilt")
     val application = NodeData.Plugin(id = "application")
     val marmatsan = NodeData.Plugin(id = "marmatsan")
     val compose = NodeData.Plugin(id = "compose")
     val dependencies = NodeData.Plugin(id = "dependencies")
+    val devtools = NodeData.Plugin(id = "devtools")
+    val ksp = NodeData.Plugin(id = "ksp")
 
     /* Duplicates */
 
+    val androidHilt = android.copy()
 
     /* Tree Nodes */
 
     // Level 1
     val androidNode = TreeNode(
         android.copy()
+    )
+    val googleNode = TreeNode(
+        google.copy()
     )
     val marmatsanNode = TreeNode(
         marmatsan.copy()
@@ -272,7 +339,7 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
     // Level 2
     val applicationNode = TreeNode(
         application.copy(
-            version = "8.0.2"
+            version = "8.1.1"
         )
     )
     val composeNode = TreeNode(
@@ -282,19 +349,64 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
         dependencies.copy()
     )
 
+    val devtoolsNode = TreeNode(
+        devtools.copy()
+    )
+
+    val daggerNode = TreeNode(
+        dagger.copy()
+    )
+
+    // Level 3
+    val kspNode = TreeNode(
+        ksp.copy(
+            version = "1.9.0-1.0.13"
+        )
+    )
+
+    val hiltNode = TreeNode(
+        hilt.copy()
+    )
+
+    // Level 4
+    val androidHiltNode = TreeNode(
+        androidHilt.copy(
+            version = "2.48"
+        )
+    )
+
     /* Create tree */
 
     // Level 1
     rootNode.add(
-        androidNode, marmatsanNode
+        androidNode, googleNode, marmatsanNode
     )
+
     // Level 2
     androidNode.add(
         applicationNode
     )
 
+    googleNode.add(
+        devtoolsNode, daggerNode
+    )
+
     marmatsanNode.add(
         composeNode, dependenciesNode
+    )
+
+    // Level 3
+    devtoolsNode.add(
+        kspNode
+    )
+
+    daggerNode.add(
+        hiltNode
+    )
+
+    // Level 4
+    hiltNode.add(
+        androidHiltNode
     )
 
     return rootNode

@@ -7,32 +7,29 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.withType
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 class Android : Plugin<Project> {
     override fun apply(project: Project) {
 
-        project.plugins.apply("org.jetbrains.kotlin.android")
-        project.plugins.apply("org.jetbrains.kotlin.kapt")
-        project.plugins.apply("com.google.dagger.hilt.android")
-
         val androidExtension = when {
-            project.plugins.hasPlugin(AppPlugin::class.java) -> {
-                project.extensions.getByName("android") as ApplicationExtension
+            project.plugins.hasPlugin(AppPlugin::class) -> {
+                project.extensions.getByType<ApplicationExtension>()
             }
 
             else -> {
-                project.extensions.getByName("android") as LibraryExtension
+                project.extensions.getByType<LibraryExtension>()
             }
         }
 
         androidExtension.apply {
             namespace = "com.marmatsan.${project.name}"
-            compileSdk = 33
-
+            compileSdk = 34
             defaultConfig {
                 minSdk = 26
 
@@ -44,7 +41,7 @@ class Android : Plugin<Project> {
                             val minorVersion = 0
                             val bugfixVersion = 0
 
-                            targetSdk = 33
+                            targetSdk = 34
                             versionCode = majorVersion * 1000 + minorVersion * 100 + bugfixVersion
                             versionName = "${majorVersion}.${minorVersion}.$bugfixVersion"
                         }
@@ -65,11 +62,28 @@ class Android : Plugin<Project> {
             }
 
         }
+        // Applied plugins
+        project.pluginManager.apply("org.jetbrains.kotlin.android")
+        project.pluginManager.apply("com.google.dagger.hilt.android")
+        project.pluginManager.apply("com.google.devtools.ksp")
+
+        // Applied libs
+        val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         project.dependencies {
-            add("implementation", "com.google.dagger:hilt-android:2.47")
-            add("kapt", "com.google.dagger:hilt-android-compiler:2.47")
+            implementation(libs.getLibrary("com.google.dagger.hilt.android"))
+            ksp(libs.getLibrary("com.google.dagger.hilt.android.compiler"))
         }
-
     }
+
+    private fun VersionCatalog.getLibrary(libraryAlias: String): String {
+        return findLibrary(libraryAlias).get().get().toString()
+    }
+
+
+    private fun DependencyHandlerScope.implementation(dependencyNotation: String): Dependency? =
+        add("implementation", dependencyNotation)
+
+    private fun DependencyHandlerScope.ksp(dependencyNotation: String): Dependency? =
+        add("ksp", dependencyNotation)
 }

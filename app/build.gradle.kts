@@ -1,40 +1,30 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.marmatsan.android")
     id("com.marmatsan.compose")
 }
 
 android {
-    namespace = "com.marmatsan.heal_th"
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.marmatsan.heal_th"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_19
-        targetCompatibility = JavaVersion.VERSION_19
-    }
-    kotlinOptions {
-        jvmTarget = "19"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+
+    packaging {
+        resources {
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        }
+    }
+
 }
 
 dependencies {
