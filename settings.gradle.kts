@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         google()
@@ -24,5 +26,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Heal-th"
 include(
-    ":app"
+    ":app",
+    ":onboarding:domain",
+    ":onboarding:ui"
 )

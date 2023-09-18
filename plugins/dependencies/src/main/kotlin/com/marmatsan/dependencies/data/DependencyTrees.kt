@@ -248,6 +248,7 @@ fun comLibraryTree(): TreeNode<NodeData.Library> {
 
     //region Unique Named Nodes
 
+
     val google = NodeData.Library(group = "google")
     val dagger = NodeData.Library(group = "dagger")
 
@@ -318,6 +319,7 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
     val dependencies = NodeData.Plugin(id = "dependencies")
     val devtools = NodeData.Plugin(id = "devtools")
     val ksp = NodeData.Plugin(id = "ksp")
+    val library = NodeData.Plugin(id = "library")
 
     /* Duplicates */
 
@@ -339,6 +341,11 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
     // Level 2
     val applicationNode = TreeNode(
         application.copy(
+            version = "8.1.1"
+        )
+    )
+    val libraryNode = TreeNode(
+        library.copy(
             version = "8.1.1"
         )
     )
@@ -384,7 +391,7 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
 
     // Level 2
     androidNode.add(
-        applicationNode
+        applicationNode, libraryNode
     )
 
     googleNode.add(
