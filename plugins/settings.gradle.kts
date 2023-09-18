@@ -1,4 +1,7 @@
 rootProject.name = "plugins"
+
 include(
-    ":plugin"
+    ":android",
+    ":dependencies",
+    ":compose"
 )
