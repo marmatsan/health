@@ -2,7 +2,6 @@ package com.marmatsan.android
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -11,10 +10,11 @@ import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
-class Android : Plugin<Project> {
+class AndroidPlugin : Plugin<Project> {
     override fun apply(project: Project) {
 
         val androidExtension = when {
@@ -54,7 +54,8 @@ class Android : Plugin<Project> {
                 }
 
                 project.tasks.withType<KotlinJvmCompile>().configureEach {
-                    compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_1_8)
+                    compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_1_9)
+                    compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
                 }
 
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -79,7 +80,6 @@ class Android : Plugin<Project> {
     private fun VersionCatalog.getLibrary(libraryAlias: String): String {
         return findLibrary(libraryAlias).get().get().toString()
     }
-
 
     private fun DependencyHandlerScope.implementation(dependencyNotation: String): Dependency? =
         add("implementation", dependencyNotation)

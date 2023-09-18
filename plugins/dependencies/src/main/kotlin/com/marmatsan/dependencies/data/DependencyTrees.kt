@@ -360,7 +360,7 @@ fun comPluginTree(): TreeNode<NodeData.Plugin> {
     // Level 3
     val kspNode = TreeNode(
         ksp.copy(
-            version = "1.9.0-1.0.13"
+            version = "1.9.10-1.0.13"
         )
     )
 
@@ -444,7 +444,7 @@ fun orgPluginTree(): TreeNode<NodeData.Plugin> {
     // Level 3
     val androidNode = TreeNode(
         android.copy(
-            version = "1.9.0"
+            version = "1.9.10"
         )
     )
 

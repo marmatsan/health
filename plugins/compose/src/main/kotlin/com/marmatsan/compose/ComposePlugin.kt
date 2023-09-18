@@ -8,10 +8,13 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.catalog.VersionCatalogPlugin
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.hasPlugin
 
 class ComposePlugin : Plugin<Project> {
+
     override fun apply(project: Project) {
 
         val androidExtension = when {
@@ -37,7 +40,7 @@ class ComposePlugin : Plugin<Project> {
             }
 
             composeOptions {
-                kotlinCompilerExtensionVersion = "1.5.0"
+                kotlinCompilerExtensionVersion = "1.5.3"
             }
 
         }

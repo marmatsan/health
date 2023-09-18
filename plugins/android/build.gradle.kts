@@ -10,16 +10,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.android.tools.build:gradle:8.0.2")
-    implementation(kotlin("gradle-plugin"))
-    implementation(kotlin("android-extensions"))
+    compileOnly("com.android.tools.build:gradle:8.1.1")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
+    implementation("org.jetbrains.kotlin:kotlin-android-extensions:1.9.10")
 }
 
 gradlePlugin {
-    plugins {
-        register("com.marmatsan.android") {
-            id = "com.marmatsan.android"
-            implementationClass = "com.marmatsan.android.Android"
-        }
+    plugins.register("com.marmatsan.android") {
+        id = "com.marmatsan.android"
+        implementationClass = "com.marmatsan.android.AndroidPlugin"
     }
 }
