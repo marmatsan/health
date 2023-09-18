@@ -27,9 +27,9 @@ dependencyResolutionManagement {
 rootProject.name = "Heal-th"
 include(
     ":app",
-    ":core:data",
-    ":core:domain",
-    ":core:ui",
-    ":onboarding:domain",
-    ":onboarding:ui"
+    ":core:core_data",
+    ":core:core_domain",
+    ":core:core_ui",
+    ":onboarding:onboarding_domain",
+    ":onboarding:onboarding_ui"
 )
