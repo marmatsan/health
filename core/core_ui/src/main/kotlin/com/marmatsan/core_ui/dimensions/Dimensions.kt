@@ -1,4 +1,4 @@
-package com.marmatsan.core_ui
+package com.marmatsan.core_ui.dimensions
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp

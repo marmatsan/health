@@ -1,4 +1,4 @@
-package com.marmatsan.core_ui.utils
+package com.marmatsan.core_domain.util
 
 import android.content.Context
 

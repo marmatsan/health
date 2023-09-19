@@ -6,6 +6,9 @@ plugins {
 
 dependencies {
     /* Modules */
+    // Core
     implementation(projects.core.coreUi)
     implementation(projects.core.coreDomain)
+    // Onboarding
+    implementation(projects.onboarding.onboardingDomain)
 }

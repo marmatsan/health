@@ -19,11 +19,13 @@ val comPluginTree = tree(Plugin(id = "com")) {
     }
 }
 
-
 val orgPluginTree = tree(Plugin(id = "org")) {
     tree(Plugin(id = "jetbrains")) {
         tree(Plugin(id = "kotlin")) {
             tree(Plugin(id = "android", version = "1.9.10"))
+            tree(Plugin(id = "plugin")) {
+                tree(Plugin(id = "serialization", version = "1.9.10"))
+            }
         }
     }
 }

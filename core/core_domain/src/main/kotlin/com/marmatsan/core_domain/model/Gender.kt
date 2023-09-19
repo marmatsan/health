@@ -1,4 +1,6 @@
-package com.marmatsan.onboarding_domain.model
+package com.marmatsan.core_domain.model
+
+import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Gender {
@@ -7,13 +9,13 @@ sealed class Gender {
     }
 
     @Serializable
-    object Male : Gender()
+    data object Male : Gender()
 
     @Serializable
-    object Female : Gender()
+    data object Female : Gender()
 
     @Serializable
-    object Unknown : Gender()
+    data object Unknown : Gender()
 
     companion object {
         fun fromType(type: GenderType): Gender {

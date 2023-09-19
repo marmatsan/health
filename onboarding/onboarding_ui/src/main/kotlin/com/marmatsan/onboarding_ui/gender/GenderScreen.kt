@@ -1,52 +1,27 @@
 package com.marmatsan.onboarding_ui.gender
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.marmatsan.core_domain.R
 import com.marmatsan.core_domain.model.Gender
-import com.marmatsan.core_domain.util.UiEvent
-import com.marmatsan.core_ui.LocalSpacing
+import com.marmatsan.core_ui.dimensions.LocalSpacing
+import com.marmatsan.onboarding_ui.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.SelectableButton
 
 @Composable
 fun GenderScreen(
-    modifier: Modifier = Modifier,
-    snackbarHostState: SnackbarHostState,
-    onNavigate: (UiEvent.Navigate) -> Unit,
-    viewModel: GenderViewModel = hiltViewModel()
+    state: GenderState,
+    onEvent: (GenderEvent) -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-
-    GenderScreenContent(
-        modifier = modifier,
-        selectedGender = viewModel.selectedGender,
-        onGenderEnter = {
-            viewModel.onEvent(GenderEvent.OnGenderEnter(it))
-        },
-        onNextClick = {
-            viewModel.onEvent(GenderEvent.OnNextClicked)
-        }
-    )
-
-}
-
-@Composable
-fun GenderScreenContent(
-    modifier: Modifier = Modifier,
-    selectedGender: Gender,
-    onGenderEnter: (Gender) -> Unit,
-    onNextClick: () -> Unit
-) {
+    LocalContext.current
     val spacing = LocalSpacing.current
 
     Column(
@@ -68,19 +43,17 @@ fun GenderScreenContent(
             Row {
                 SelectableButton(
                     text = stringResource(id = R.string.male),
-                    isSelected = selectedGender is Gender.Male,
-                    onClick = {
-                        onGenderEnter(Gender.Male)
-                    }
-                )
+                    isSelected = state.gender is Gender.Male
+                ) {
+                    onEvent(GenderEvent.OnGenderChange(Gender.Male))
+                }
                 Spacer(Modifier.width(spacing.spaceMedium))
                 SelectableButton(
                     text = stringResource(id = R.string.female),
-                    isSelected = selectedGender is Gender.Female,
-                    onClick = {
-                        onGenderEnter(Gender.Female)
-                    }
-                )
+                    isSelected = state.gender is Gender.Female
+                ) {
+                    onEvent(GenderEvent.OnGenderChange(Gender.Female))
+                }
             }
         }
         Row(
@@ -98,14 +71,15 @@ fun GenderScreenContent(
             )
         }
     }
+
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-fun GenderScreenContentPreview() {
-    GenderScreenContent(
-        selectedGender = Gender.Female,
-        onGenderEnter = { },
+fun GenderScreenPreview() {
+    GenderScreen(
+        state = GenderState(gender = Gender.Male),
+        onEvent = { },
         onNextClick = { }
     )
 }
