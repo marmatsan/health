@@ -9,7 +9,7 @@ val comPluginTree = tree(Plugin(id = "com")) {
     }
     tree(Plugin(id = "google")) {
         tree(Plugin(id = "devtools")) {
-            tree(Plugin(id = "ksp", version = "1.9.0-1.0.13"))
+            tree(Plugin(id = "ksp", version = "1.9.10-1.0.13"))
         }
         tree(Plugin(id = "dagger")) {
             tree(Plugin(id = "hilt")) {
@@ -23,7 +23,7 @@ val comPluginTree = tree(Plugin(id = "com")) {
 val orgPluginTree = tree(Plugin(id = "org")) {
     tree(Plugin(id = "jetbrains")) {
         tree(Plugin(id = "kotlin")) {
-            tree(Plugin(id = "android", version = "1.9.0"))
+            tree(Plugin(id = "android", version = "1.9.10"))
         }
     }
 }

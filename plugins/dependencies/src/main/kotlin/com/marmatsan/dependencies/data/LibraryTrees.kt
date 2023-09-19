@@ -2,8 +2,6 @@ package com.marmatsan.dependencies.data
 
 import com.marmatsan.dependencies.data.NodeData.Library as Library
 
-// Library trees
-
 val androidXLibraryTree = tree(Library(group = "androidx")) {
     tree(
         Library(
@@ -146,9 +144,9 @@ val androidXComposeLibraryTree = tree(Library(group = "androidx")) {
         Library(
             group = "navigation", artifactsGroups = listOf(
                 NodeData.ArtifactsGroup(
-                    name = "hilt",
-                    artifacts = listOf("hilt-navigation-compose"),
-                    version = "1.0.0"
+                    name = "navigation",
+                    artifacts = listOf("navigation-compose"),
+                    version = "2.7.2"
                 )
             )
         )
@@ -171,4 +169,20 @@ val comLibraryTree = tree(Library(group = "com")) {
     }
 }
 
-val libraryTrees = listOf(androidXLibraryTree, comLibraryTree)
+val orgLibraryTree = tree(Library(group = "org")) {
+    tree(Library(group = "jetbrains")) {
+        tree(
+            Library(
+                group = "kotlinx", artifactsGroups = listOf(
+                    NodeData.ArtifactsGroup(
+                        name = "kotlinx",
+                        artifacts = listOf("kotlinx-serialization-json"),
+                        version = "1.6.0"
+                    )
+                )
+            )
+        )
+    }
+}
+
+val libraryTrees = listOf(androidXLibraryTree, comLibraryTree, orgLibraryTree)

@@ -1,18 +1,16 @@
 package com.marmatsan.dependencies.data
 
 class TreeNode<T : NodeData>(
-    val data: T
+    private val data: T
 ) {
     private val children: MutableList<TreeNode<T>> by lazy {
         mutableListOf()
     }
 
-    fun add(child: TreeNode<T>) = this.children.add(child)
-
-    fun add(vararg children: TreeNode<T>) = this.children.addAll(children)
-
     private fun hasChildren(): Boolean = children.size >= 1
     private fun isLeaf(): Boolean = !hasChildren()
+
+    fun add(child: TreeNode<T>) = this.children.add(child)
 
     fun getDependencies(
         path: MutableList<String> = mutableListOf(),

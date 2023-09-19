@@ -26,3 +26,14 @@ android {
     }
 
 }
+
+dependencies {
+    /* Modules */
+    // Core
+    implementation(projects.core.coreData)
+    implementation(projects.core.coreDomain)
+    implementation(projects.core.coreUi)
+    // Onboarding
+    implementation(projects.onboarding.onboardingDomain)
+    implementation(projects.onboarding.onboardingUi)
+}
