@@ -7,59 +7,57 @@ class TreeNode<T : NodeData>(
         mutableListOf()
     }
 
+    fun add(child: TreeNode<T>) = this.children.add(child)
+
     fun add(vararg children: TreeNode<T>) = this.children.addAll(children)
 
     private fun hasChildren(): Boolean = children.size >= 1
     private fun isLeaf(): Boolean = !hasChildren()
 
-    companion object {
-        fun getDependencies(
-            node: TreeNode<out NodeData>,
-            path: MutableList<String> = mutableListOf(),
-            result: MutableList<Dependency> = mutableListOf()
-        ): List<Dependency> {
-            val nodeData = node.data
-            path.add("${nodeData.id}.")
+    fun getDependencies(
+        path: MutableList<String> = mutableListOf(),
+        result: MutableList<Dependency> = mutableListOf()
+    ): List<Dependency> {
+        val nodeData = this.data
+        path.add("${nodeData.id}.")
 
-            if (node.isLeaf()) {
-                val joinedPathWithoutLastDot = path.joinToString(separator = "") { it }.removeSuffix(suffix = ".")
-                when (nodeData) {
-                    is NodeData.Library -> {
-                        result.add(
-                            Dependency.Library(
-                                group = joinedPathWithoutLastDot,
-                                artifactsGroups = nodeData.artifactsGroups?.map { artifactsGroup ->
-                                    Dependency.ArtifactsGroup(
-                                        name = artifactsGroup.name,
-                                        artifacts = artifactsGroup.artifacts,
-                                        version = artifactsGroup.version
-                                    )
-                                }
-                            )
+        if (this.isLeaf()) {
+            val joinedPathWithoutLastDot = path.joinToString(separator = "") { it }.removeSuffix(suffix = ".")
+            when (nodeData) {
+                is NodeData.Library -> {
+                    result.add(
+                        Dependency.Library(
+                            group = joinedPathWithoutLastDot,
+                            artifactsGroups = nodeData.artifactsGroups?.map { artifactsGroup ->
+                                Dependency.ArtifactsGroup(
+                                    name = artifactsGroup.name,
+                                    artifacts = artifactsGroup.artifacts,
+                                    version = artifactsGroup.version
+                                )
+                            }
                         )
-                    }
-
-                    is NodeData.Plugin -> {
-                        result.add(
-                            Dependency.Plugin(
-                                id = joinedPathWithoutLastDot,
-                                version = nodeData.version
-                            )
-                        )
-                    }
+                    )
                 }
-            } else {
-                node.children.forEach { child ->
-                    getDependencies(
-                        node = child,
-                        path = path,
-                        result = result
+
+                is NodeData.Plugin -> {
+                    result.add(
+                        Dependency.Plugin(
+                            id = joinedPathWithoutLastDot,
+                            version = nodeData.version
+                        )
                     )
                 }
             }
-            path.removeLast()
-
-            return result
+        } else {
+            this.children.forEach { child ->
+                child.getDependencies(
+                    path = path,
+                    result = result
+                )
+            }
         }
+        path.removeLast()
+
+        return result
     }
 }
