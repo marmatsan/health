@@ -8,5 +8,5 @@ interface Preferences {
     suspend fun saveGender(gender: Gender)
 
     // Load data
-    fun loadPreferencesData(): Flow<PreferencesData>
+    fun preferencesDataFlow(): Flow<PreferencesData>
 }

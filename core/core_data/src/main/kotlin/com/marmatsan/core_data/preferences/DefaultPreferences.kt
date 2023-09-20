@@ -21,7 +21,7 @@ class DefaultPreferences @Inject constructor(
         }
     }
 
-    override fun loadPreferencesData(): Flow<PreferencesData> {
+    override fun preferencesDataFlow(): Flow<PreferencesData> {
         return dataStore.data
     }
 }

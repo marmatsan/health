@@ -8,7 +8,6 @@ dependencies {
     implementation(projects.core.coreDomain)
 
     /* Libraries */
-    // DataStore
     implementation(libs.androidx.datastore)
     implementation(libs.org.jetbrains.kotlinx)
 }

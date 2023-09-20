@@ -9,6 +9,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -72,8 +73,17 @@ class AndroidPlugin : Plugin<Project> {
         val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         project.dependencies {
+            // Dependency injection
             implementation(libs.getLibrary("com.google.dagger.hilt.android"))
             ksp(libs.getLibrary("com.google.dagger.hilt.android.compiler"))
+            // Testing
+            testImplementation(libs.getLibrary("org.junit.jupiter"))
+            testImplementation(libs.getLibrary("com.willowtreeapps.assertk"))
+            testImplementation(libs.getLibrary("io.mockk"))
+        }
+
+        project.tasks.withType<Test> {
+            useJUnitPlatform()
         }
     }
 
@@ -83,6 +93,9 @@ class AndroidPlugin : Plugin<Project> {
 
     private fun DependencyHandlerScope.implementation(dependencyNotation: String): Dependency? =
         add("implementation", dependencyNotation)
+
+    private fun DependencyHandlerScope.testImplementation(dependencyNotation: String): Dependency? =
+        add("testImplementation", dependencyNotation)
 
     private fun DependencyHandlerScope.ksp(dependencyNotation: String): Dependency? =
         add("ksp", dependencyNotation)

@@ -15,8 +15,8 @@ class ValidateGender {
         }
     }
 
-    sealed class Result {
-        data object Success : Result()
-        data class Error(val message: UiText) : Result()
+    sealed interface Result {
+        data object Success : Result
+        data class Error(val message: UiText) : Result
     }
 }

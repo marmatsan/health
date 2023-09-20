@@ -179,6 +179,19 @@ val comLibraryTree = tree(Library(group = "com")) {
             )
         )
     }
+    tree(Library(group = "willowtreeapps")) {
+        tree(
+            Library(
+                group = "assertk", artifactsGroups = listOf(
+                    ArtifactsGroup(
+                        name = "assertk",
+                        artifacts = listOf("assertk"),
+                        version = "0.27.0"
+                    )
+                )
+            )
+        )
+    }
 }
 
 val orgLibraryTree = tree(Library(group = "org")) {
@@ -195,6 +208,33 @@ val orgLibraryTree = tree(Library(group = "org")) {
             )
         )
     }
+    tree(Library(group = "junit")) {
+        tree(
+            Library(
+                group = "jupiter", artifactsGroups = listOf(
+                    ArtifactsGroup(
+                        name = "jupiter",
+                        artifacts = listOf("junit-jupiter"),
+                        version = "5.10.0"
+                    )
+                )
+            )
+        )
+    }
 }
 
-val libraryTrees = listOf(androidXLibraryTree, comLibraryTree, orgLibraryTree)
+val ioLibraryTree = tree(Library(group = "io")) {
+    tree(
+        Library(
+            group = "mockk", artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "mockk",
+                    artifacts = listOf("mockk"),
+                    version = "1.13.7"
+                )
+            )
+        )
+    )
+}
+
+val libraryTrees = listOf(androidXLibraryTree, comLibraryTree, orgLibraryTree, ioLibraryTree)
