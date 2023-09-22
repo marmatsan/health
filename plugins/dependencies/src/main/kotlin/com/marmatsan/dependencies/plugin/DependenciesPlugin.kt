@@ -18,25 +18,22 @@ private fun DependencyResolutionManagement.buildVersionCatalogs() {
     versionCatalogs {
         create("libs") {
             libraryTrees.forEach {
-                createLibraries(it.getDependencies())
+                createLibraries(it.getLibraries())
             }
         }
         create("libsCompose") {
-            createLibraries(androidXComposeLibraryTree.getDependencies())
+            createLibraries(androidXComposeLibraryTree.getLibraries())
         }
         create("plugins") {
             pluginTrees.forEach {
-                createPlugins(it.getDependencies())
+                createPlugins(it.getPlugins())
             }
         }
     }
 }
 
-private fun VersionCatalogBuilder.createLibraries(dependencies: List<Dependency>) {
-    dependencies.forEach { dependency ->
-
-        val library = dependency as Dependency.Library
-
+private fun VersionCatalogBuilder.createLibraries(libraries: List<Dependency.Library>) {
+    libraries.forEach { library ->
         val libraryGroup = library.group
         val artifactsGroups = library.artifactsGroups
 
@@ -73,9 +70,8 @@ private fun VersionCatalogBuilder.createLibraries(dependencies: List<Dependency>
     }
 }
 
-private fun VersionCatalogBuilder.createPlugins(plugins: List<Dependency>) {
-    plugins.forEach { dependency ->
-        val plugin = dependency as Dependency.Plugin
+private fun VersionCatalogBuilder.createPlugins(plugins: List<Dependency.Plugin>) {
+    plugins.forEach { plugin ->
         if (plugin.version != null) // TODO: Plugin version is always not null here
             plugin(
                 plugin.id,

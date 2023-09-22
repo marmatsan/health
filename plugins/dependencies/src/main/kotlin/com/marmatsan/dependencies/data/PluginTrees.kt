@@ -25,6 +25,7 @@ val orgPluginTree = tree(Plugin(id = "org")) {
             tree(Plugin(id = "android", version = "1.9.10"))
             tree(Plugin(id = "plugin")) {
                 tree(Plugin(id = "serialization", version = "1.9.10"))
+                tree(Plugin(id = "parcelize", version = "1.9.10"))
             }
         }
     }

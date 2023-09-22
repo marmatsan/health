@@ -146,8 +146,8 @@ val androidXComposeLibraryTree = tree(Library(group = "androidx")) {
             group = "lifecycle", artifactsGroups = listOf(
                 ArtifactsGroup(
                     name = "lifecycle",
-                    artifacts = listOf("lifecycle-viewmodel-compose"),
-                    version = "2.6.1"
+                    artifacts = listOf("lifecycle-viewmodel-compose", "lifecycle-runtime-compose"),
+                    version = "2.6.2"
                 )
             )
         )

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
+    fun `Addition is correct`() {
         assertThat(2 + 2).isEqualTo(4)
     }
 }

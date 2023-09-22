@@ -8,6 +8,7 @@ import com.marmatsan.core_data.preferences.DefaultPreferences
 import com.marmatsan.core_data.preferences.PreferencesDataSerializer
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_domain.preferences.PreferencesData
+import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,6 +42,12 @@ object AppModule {
     @Provides
     fun providePreferences(dataStore: DataStore<PreferencesData>): Preferences {
         return DefaultPreferences(dataStore)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFilterOutDigitsUseCase(): FilterOutDigits {
+        return FilterOutDigits()
     }
 
 }
