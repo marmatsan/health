@@ -1,4 +1,4 @@
-package com.marmatsan.onboarding_ui.age
+package com.marmatsan.onboarding_ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.SnackbarHostState
@@ -10,25 +10,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.marmatsan.onboarding_ui.UiEvent
+import com.marmatsan.core_domain.model.Gender
+import com.marmatsan.onboarding_ui.events.UiEvent
 import com.marmatsan.core_ui.dimensions.LocalSpacing
+import com.marmatsan.onboarding_ui.R
 import com.marmatsan.onboarding_ui.components.ActionButton
-import com.marmatsan.onboarding_ui.components.UnitTextField
+import com.marmatsan.onboarding_ui.components.SelectableButton
+import com.marmatsan.onboarding_ui.events.GenderEvent
+import com.marmatsan.onboarding_ui.states.GenderState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import com.marmatsan.onboarding_ui.R
 
 @Composable
-fun AgeScreen(
-    state: AgeState,
-    onEvent: (AgeEvent) -> Unit,
+fun GenderScreen(
+    state: GenderState,
+    onEvent: (GenderEvent) -> Unit,
     uiEvent: Flow<UiEvent>,
     snackbarHostState: SnackbarHostState,
     onNextClick: () -> Unit,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     val context = LocalContext.current
     val spacing = LocalSpacing.current
 
@@ -36,12 +37,12 @@ fun AgeScreen(
         uiEvent.collect { event ->
             when (event) {
                 is UiEvent.Success -> onNextClick()
-                is UiEvent.NavigateBack -> onBackClick()
                 is UiEvent.ShowSnackBar -> {
                     snackbarHostState.showSnackbar(
                         message = event.message.asString(context)
                     )
                 }
+                is UiEvent.NavigateBack -> TODO()
             }
         }
     }
@@ -53,40 +54,42 @@ fun AgeScreen(
     ) {
         Column(
             modifier = modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .weight(9f),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.whats_your_age)
+                text = stringResource(id = R.string.whats_your_gender)
             )
-            Spacer(Modifier.height(spacing.spaceMedium))
-            UnitTextField(
-                value = state.age,
-                onValueChange = {
-                    onEvent(AgeEvent.OnAgeChange(it))
-                },
-                unit = stringResource(R.string.years)
-            )
+            Spacer(modifier.height(spacing.spaceMedium))
+            Row {
+                SelectableButton(
+                    text = stringResource(id = R.string.male),
+                    isSelected = state.gender is Gender.Male
+                ) {
+                    onEvent(GenderEvent.OnGenderChange(Gender.Male))
+                }
+                Spacer(Modifier.width(spacing.spaceMedium))
+                SelectableButton(
+                    text = stringResource(id = R.string.female),
+                    isSelected = state.gender is Gender.Female
+                ) {
+                    onEvent(GenderEvent.OnGenderChange(Gender.Female))
+                }
+            }
         }
         Row(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(spacing.spaceMedium)
                 .weight(1f),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.End
         ) {
             ActionButton(
-                text = stringResource(R.string.back),
+                text = stringResource(id = R.string.next),
                 onClick = {
-                    onEvent(AgeEvent.OnBackClicked)
-                }
-            )
-            ActionButton(
-                text = stringResource(R.string.next),
-                onClick = {
-                    onEvent(AgeEvent.OnNextClicked)
+                    onEvent(GenderEvent.OnNextClicked)
                 }
             )
         }
@@ -96,13 +99,12 @@ fun AgeScreen(
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-fun AgeScreenPreview() {
-    AgeScreen(
-        state = AgeState(),
+fun GenderScreenPreview() {
+    GenderScreen(
+        state = GenderState(gender = Gender.Male),
         onEvent = { },
         uiEvent = flow { },
         snackbarHostState = SnackbarHostState(),
-        onNextClick = { },
-        onBackClick = { }
+        onNextClick = { }
     )
 }

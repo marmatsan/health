@@ -1,21 +1,27 @@
 package com.marmatsan.core_domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
-sealed class Gender {
+sealed interface Gender : Parcelable {
     enum class GenderType {
         MALE, FEMALE, UNKNOWN
     }
 
+    @Parcelize
     @Serializable
-    data object Male : Gender()
+    data object Male : Gender
 
+    @Parcelize
     @Serializable
-    data object Female : Gender()
+    data object Female : Gender
 
+    @Parcelize
     @Serializable
-    data object Unknown : Gender()
+    data object Unknown : Gender
 
     companion object {
         fun fromType(type: GenderType): Gender {

@@ -1,4 +1,4 @@
-package com.marmatsan.onboarding_ui.age
+package com.marmatsan.onboarding_ui.states
 
 import com.marmatsan.core_domain.model.Gender
 

@@ -1,7 +1,6 @@
-package com.marmatsan.onboarding_ui.gender
+package com.marmatsan.onboarding_ui.events
 
 import com.marmatsan.core_domain.model.Gender
-import com.marmatsan.onboarding_ui.UiEvent
 
 sealed interface GenderEvent {
     data class OnGenderChange(val gender: Gender) : GenderEvent

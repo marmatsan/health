@@ -1,4 +1,4 @@
-package com.marmatsan.onboarding_ui.age
+package com.marmatsan.onboarding_ui.events
 
 sealed interface AgeEvent {
     data class OnAgeChange(val age: String) : AgeEvent

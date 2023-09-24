@@ -17,11 +17,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.marmatsan.heal_th.ui.theme.HealthTheme
-import com.marmatsan.onboarding_ui.age.AgeScreen
-import com.marmatsan.onboarding_ui.age.AgeViewModel
-import com.marmatsan.onboarding_ui.gender.GenderScreen
-import com.marmatsan.onboarding_ui.gender.GenderViewModel
-import com.marmatsan.onboarding_ui.welcome.WelcomeScreen
+import com.marmatsan.onboarding_ui.screens.AgeScreen
+import com.marmatsan.onboarding_ui.screens.GenderScreen
+import com.marmatsan.onboarding_ui.screens.WelcomeScreen
+import com.marmatsan.onboarding_ui.viewmodels.AgeViewModel
+import com.marmatsan.onboarding_ui.viewmodels.GenderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,9 +67,10 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "age") {
                             val viewModel = hiltViewModel<AgeViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
                             AgeScreen(
                                 modifier = Modifier.padding(paddingValues),
-                                state = viewModel.state,
+                                state = state,
                                 onEvent = viewModel::onEvent,
                                 uiEvent = viewModel.uiEvent,
                                 snackbarHostState = snackbarHostState,
