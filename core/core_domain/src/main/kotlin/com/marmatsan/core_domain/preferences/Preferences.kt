@@ -3,11 +3,9 @@ package com.marmatsan.core_domain.preferences
 import com.marmatsan.core_domain.model.Gender
 import kotlinx.coroutines.flow.Flow
 
-interface Preferences {
+interface Preferences<T : Any> {
     // Save data
-    suspend fun save()
-    suspend fun saveGender(gender: Gender)
-    suspend fun saveAge(age: Int)
+    suspend fun saveData(value : T)
 
     // Load data
     fun preferencesDataFlow(): Flow<PreferencesData>

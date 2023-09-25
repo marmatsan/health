@@ -40,7 +40,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providePreferences(dataStore: DataStore<PreferencesData>): Preferences {
+    fun providePreferences(dataStore: DataStore<PreferencesData>): Preferences<Any> {
         return DefaultPreferences(dataStore)
     }
 

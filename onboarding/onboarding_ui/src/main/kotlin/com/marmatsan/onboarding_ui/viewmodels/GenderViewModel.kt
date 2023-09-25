@@ -16,41 +16,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GenderViewModel @Inject constructor(
-    private val preferences: Preferences,
-    private val validateGender: ValidateGender
-) : ViewModel() {
-
-
-    private val _state = MutableStateFlow(GenderState())
-    var state = _state.asStateFlow()
-
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
-
-
-    fun onEvent(event: GenderEvent) {
-        when (event) {
-            is GenderEvent.OnGenderChange -> {
-                _state.value = _state.value.copy(gender = event.gender)
-            }
-
-            is GenderEvent.OnNextClicked -> {
-                when (val result = validateGender(state.value.gender)) {
-                    is ValidateGender.Result.Success -> {
-                        viewModelScope.launch {
-                            preferences.saveGender(state.value.gender)
-                            _uiEvent.send(UiEvent.Success)
-                        }
-                    }
-
-                    is ValidateGender.Result.Error -> {
-                        viewModelScope.launch {
-                            _uiEvent.send(UiEvent.ShowSnackBar(message = result.message))
-                        }
-                    }
-                }
-            }
-        }
+class GenderViewModel : BaseViewModel<GenderState, GenderEvent>(){
+    override suspend fun handleEvent(event: GenderEvent) {
+        TODO("Not yet implemented")
     }
+
 }

@@ -14,20 +14,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class BaseViewModel<T : State, E : UiEvent> @Inject constructor(
-    private val preferences: Preferences
+    initialState: T,
+    private val preferences: Preferences<T>
 ) : ViewModel() {
 
-
-
-    private val _state = MutableStateFlow(initialState())
+    private val _state = MutableStateFlow(initialState)
     var state = _state.asStateFlow()
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    protected abstract fun initialState(): T
     protected abstract suspend fun handleEvent(event: E)
-    protected abstract suspend fun saveData(value: T)
 
     fun onEvent(event: E) {
         viewModelScope.launch {
@@ -35,9 +32,14 @@ abstract class BaseViewModel<T : State, E : UiEvent> @Inject constructor(
         }
     }
 
-    protected suspend fun saveAndSendSuccessEvent() {
+    private fun saveDataIntoPreferences() {
         viewModelScope.launch {
-            saveData(state.value)
+            preferences.saveData(state.value)
+        }
+    }
+
+    private suspend fun sendSuccessEvent() {
+        viewModelScope.launch {
             _uiEvent.send(UiEvent.Success)
         }
     }
@@ -46,5 +48,10 @@ abstract class BaseViewModel<T : State, E : UiEvent> @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(message)))
         }
+    }
+
+    protected suspend fun saveDataIntoPreferencesAndSendSuccessEvent() {
+        saveDataIntoPreferences()
+        sendSuccessEvent()
     }
 }
