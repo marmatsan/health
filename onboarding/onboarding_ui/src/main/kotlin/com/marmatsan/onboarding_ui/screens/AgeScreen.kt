@@ -38,7 +38,6 @@ fun AgeScreen(
         uiEvent.collect { event ->
             when (event) {
                 is UiEvent.Success -> onNextClick()
-                is UiEvent.NavigateBack -> onBackClick()
                 is UiEvent.ShowSnackBar -> {
                     snackbarHostState.showSnackbar(
                         message = event.message.asString(context)
@@ -82,7 +81,7 @@ fun AgeScreen(
             ActionButton(
                 text = stringResource(R.string.back),
                 onClick = {
-                    onEvent(AgeEvent.OnBackClicked)
+                    onBackClick()
                 }
             )
             ActionButton(

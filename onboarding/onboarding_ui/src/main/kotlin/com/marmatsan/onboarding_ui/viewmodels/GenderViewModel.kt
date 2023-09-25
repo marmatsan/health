@@ -1,16 +1,17 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.use_case.ValidateGender
 import com.marmatsan.onboarding_ui.events.GenderEvent
-import com.marmatsan.onboarding_ui.states.GenderState
 import com.marmatsan.onboarding_ui.events.UiEvent
+import com.marmatsan.onboarding_ui.states.GenderState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +22,8 @@ class GenderViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _state = MutableStateFlow(value = GenderState())
-    val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), GenderState())
+    private val _state = MutableStateFlow(GenderState())
+    var state = _state.asStateFlow()
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -31,7 +32,7 @@ class GenderViewModel @Inject constructor(
     fun onEvent(event: GenderEvent) {
         when (event) {
             is GenderEvent.OnGenderChange -> {
-                = state.value.copy(gender = event.gender)
+                _state.value = _state.value.copy(gender = event.gender)
             }
 
             is GenderEvent.OnNextClicked -> {

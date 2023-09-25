@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface Preferences {
     // Save data
+    suspend fun save()
     suspend fun saveGender(gender: Gender)
     suspend fun saveAge(age: Int)
 

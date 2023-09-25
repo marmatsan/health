@@ -42,7 +42,6 @@ fun GenderScreen(
                         message = event.message.asString(context)
                     )
                 }
-                is UiEvent.NavigateBack -> TODO()
             }
         }
     }
