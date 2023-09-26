@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
@@ -40,7 +41,8 @@ fun UnitTextField(
             singleLine = true,
             modifier = Modifier
                 .width(IntrinsicSize.Min)
-                .alignBy(LastBaseline)
+                .alignBy(LastBaseline),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground)
         )
         Spacer(Modifier.width(spacing.spaceSmall))
         Text(
@@ -50,7 +52,7 @@ fun UnitTextField(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun UnitTextFieldPreview() {
     UnitTextField(

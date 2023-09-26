@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_select_gender">Select a gender</string>
+    <string name="error_age_cant_be_empty">The age can\'t be empty</string>
 </resources>

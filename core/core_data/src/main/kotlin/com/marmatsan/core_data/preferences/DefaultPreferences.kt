@@ -22,8 +22,15 @@ class DefaultPreferences @Inject constructor(
     }
 
     override suspend fun saveAge(age: Int) {
-        TODO("Not yet implemented")
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    age = age
+                )
+            )
+        }
     }
+
 
     override fun preferencesDataFlow(): Flow<PreferencesData> {
         return dataStore.data
