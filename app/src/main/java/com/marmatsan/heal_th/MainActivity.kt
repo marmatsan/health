@@ -17,11 +17,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.marmatsan.heal_th.ui.theme.HealthTheme
-import com.marmatsan.onboarding_ui.screens.AgeScreen
-import com.marmatsan.onboarding_ui.screens.GenderScreen
-import com.marmatsan.onboarding_ui.screens.WelcomeScreen
+import com.marmatsan.onboarding_ui.events.WeightEvent
+import com.marmatsan.onboarding_ui.screens.*
 import com.marmatsan.onboarding_ui.viewmodels.AgeViewModel
 import com.marmatsan.onboarding_ui.viewmodels.GenderViewModel
+import com.marmatsan.onboarding_ui.viewmodels.HeightViewModel
+import com.marmatsan.onboarding_ui.viewmodels.WeightViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -83,6 +84,43 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(route = "height") {
+                            val viewModel = hiltViewModel<HeightViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
+                            HeightScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                state = state,
+                                onEvent = viewModel::onEvent,
+                                uiEvent = viewModel.uiEvent,
+                                snackbarHostState = snackbarHostState,
+                                onNextClick = {
+                                    navController.navigate("weight")
+                                },
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable(route = "weight") {
+                            val viewModel = hiltViewModel<WeightViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
+                            WeightScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                state = state,
+                                onEvent = viewModel::onEvent,
+                                uiEvent = viewModel.uiEvent,
+                                snackbarHostState = snackbarHostState,
+                                onNextClick = {
+                                    navController.navigate("weight")
+                                },
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable(route = "activity"){
+
+                        }
+                        composable(route = "goal"){
 
                         }
                     }

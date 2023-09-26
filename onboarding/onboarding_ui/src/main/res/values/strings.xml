@@ -23,4 +23,6 @@
     <string name="percent_fats">% fats</string>
     <string name="percent_carbs">% carbs</string>
     <string name="years">years</string>
+    <string name="cm">cm</string>
+    <string name="kg">kg</string>
 </resources>

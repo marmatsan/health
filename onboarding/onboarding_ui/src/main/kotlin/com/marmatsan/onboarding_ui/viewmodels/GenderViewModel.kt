@@ -12,11 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenderViewModel @Inject constructor(
-    preferences: Preferences,
     private val validateGender: ValidateGender
 ) : BaseViewModel<GenderState, GenderEvent>(
-    initialState = GenderState(),
-    preferences = preferences,
+    initialState = GenderState()
 ) {
 
     override suspend fun handleEvent(event: GenderEvent) {

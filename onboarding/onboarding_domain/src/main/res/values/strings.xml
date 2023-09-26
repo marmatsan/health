@@ -2,4 +2,7 @@
 <resources>
     <string name="error_select_gender">Select a gender</string>
     <string name="error_age_cant_be_empty">The age can\'t be empty</string>
+    <string name="error_age_not_in_range">The age must be between 8 and 120 years </string>
+    <string name="error_height_not_in_range">The height must be between 100 and 240 cm </string>
+    <string name="error_weight_not_in_range">The height must be between 25 and 400 cm </string>
 </resources>

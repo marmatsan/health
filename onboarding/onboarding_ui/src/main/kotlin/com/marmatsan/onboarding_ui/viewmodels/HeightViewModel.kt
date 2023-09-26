@@ -5,34 +5,35 @@ import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
-import com.marmatsan.onboarding_domain.use_case.ValidateAge
-import com.marmatsan.onboarding_ui.events.AgeEvent
-import com.marmatsan.onboarding_ui.states.AgeState
+import com.marmatsan.onboarding_domain.use_case.ValidateHeight
+import com.marmatsan.onboarding_ui.events.HeightEvent
+import com.marmatsan.onboarding_ui.events.WeightEvent
+import com.marmatsan.onboarding_ui.states.HeightState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AgeViewModel @Inject constructor(
-    private val validateAge: ValidateAge,
+class HeightViewModel @Inject constructor(
+    private val validateHeight: ValidateHeight,
     private val filterOutDigits: FilterOutDigits
-) : BaseViewModel<AgeState, AgeEvent>(
-    initialState = AgeState()
+) : BaseViewModel<HeightState, HeightEvent>(
+    initialState = HeightState()
 ) {
 
-    override suspend fun handleEvent(event: AgeEvent) {
+    override suspend fun handleEvent(event: HeightEvent) {
         when (event) {
-            is AgeEvent.OnAgeChange -> {
-                if (event.age hasAtMostLengthOf 3) {
-                    _state.value = _state.value.copy(age = filterOutDigits(event.age))
+            is HeightEvent.OnHeightChange -> {
+                if (event.height hasAtMostLengthOf 3) {
+                    _state.value = _state.value.copy(height = filterOutDigits(event.height))
                 }
             }
 
-            is AgeEvent.OnNextClicked -> {
+            is HeightEvent.OnNextClicked -> {
                 viewModelScope.launch {
-                    when (val result = validateAge(age = state.value.age)) {
+                    when (val result = validateHeight(height = state.value.height)) {
                         is UseCaseResult.Success -> {
-                            preferences.saveAge(result.data)
+                            preferences.saveHeight(result.data)
                             sendSuccessEvent()
                         }
 
@@ -40,7 +41,6 @@ class AgeViewModel @Inject constructor(
                             sendErrorEvent(result.message)
                         }
                     }
-
                 }
             }
         }

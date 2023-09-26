@@ -5,34 +5,36 @@ import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
-import com.marmatsan.onboarding_domain.use_case.ValidateAge
-import com.marmatsan.onboarding_ui.events.AgeEvent
-import com.marmatsan.onboarding_ui.states.AgeState
+import com.marmatsan.onboarding_domain.use_case.ValidateHeight
+import com.marmatsan.onboarding_domain.use_case.ValidateWeight
+import com.marmatsan.onboarding_ui.events.WeightEvent
+import com.marmatsan.onboarding_ui.states.HeightState
+import com.marmatsan.onboarding_ui.states.WeightState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AgeViewModel @Inject constructor(
-    private val validateAge: ValidateAge,
+class WeightViewModel @Inject constructor(
+    private val validateWeight: ValidateWeight,
     private val filterOutDigits: FilterOutDigits
-) : BaseViewModel<AgeState, AgeEvent>(
-    initialState = AgeState()
+) : BaseViewModel<WeightState, WeightEvent>(
+    initialState = WeightState()
 ) {
 
-    override suspend fun handleEvent(event: AgeEvent) {
+    override suspend fun handleEvent(event: WeightEvent) {
         when (event) {
-            is AgeEvent.OnAgeChange -> {
-                if (event.age hasAtMostLengthOf 3) {
-                    _state.value = _state.value.copy(age = filterOutDigits(event.age))
+            is WeightEvent.OnWeightChange -> {
+                if (event.weight hasAtMostLengthOf 3) {
+                    _state.value = _state.value.copy(weight = filterOutDigits(event.weight))
                 }
             }
 
-            is AgeEvent.OnNextClicked -> {
+            is WeightEvent.OnNextClicked -> {
                 viewModelScope.launch {
-                    when (val result = validateAge(age = state.value.age)) {
+                    when (val result = validateWeight(weight = state.value.weight)) {
                         is UseCaseResult.Success -> {
-                            preferences.saveAge(result.data)
+                            preferences.saveWeight(result.data)
                             sendSuccessEvent()
                         }
 

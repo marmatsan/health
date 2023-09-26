@@ -5,5 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserInfo(
     val gender: Gender? = null,
-    val age: Int? = null
+    val age: Int? = null,
+    val height: Int? = null,
+    val weight: Int? = null
 )

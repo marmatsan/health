@@ -18,8 +18,10 @@ import javax.inject.Inject
 
 abstract class BaseViewModel<T : State, E : Event>(
     initialState: T,
-    protected val preferences: Preferences
 ) : ViewModel() {
+
+    @Inject
+    protected lateinit var preferences: Preferences
 
     protected val _state = MutableStateFlow(initialState)
     var state = _state.asStateFlow()

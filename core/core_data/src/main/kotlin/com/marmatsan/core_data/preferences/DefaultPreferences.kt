@@ -31,6 +31,25 @@ class DefaultPreferences @Inject constructor(
         }
     }
 
+    override suspend fun saveHeight(height: Int) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    height = height
+                )
+            )
+        }
+    }
+
+    override suspend fun saveWeight(weight: Int) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    weight = weight
+                )
+            )
+        }
+    }
 
     override fun preferencesDataFlow(): Flow<PreferencesData> {
         return dataStore.data
