@@ -31,5 +31,8 @@ include(
     ":core:core_domain",
     ":core:core_ui",
     ":onboarding:onboarding_domain",
-    ":onboarding:onboarding_ui"
+    ":onboarding:onboarding_ui",
+    ":tracker:tracker_data",
+    ":tracker:tracker_domain",
+    ":tracker:tracker_ui"
 )
