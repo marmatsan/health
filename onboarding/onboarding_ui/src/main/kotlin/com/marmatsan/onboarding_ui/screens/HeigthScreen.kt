@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.marmatsan.core_ui.dimensions.LocalSpacing
-import com.marmatsan.onboarding_ui.R
+import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
 import com.marmatsan.onboarding_ui.events.HeightEvent

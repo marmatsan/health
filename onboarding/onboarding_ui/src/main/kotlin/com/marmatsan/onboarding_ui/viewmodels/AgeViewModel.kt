@@ -40,7 +40,6 @@ class AgeViewModel @Inject constructor(
                             sendErrorEvent(result.message)
                         }
                     }
-
                 }
             }
         }

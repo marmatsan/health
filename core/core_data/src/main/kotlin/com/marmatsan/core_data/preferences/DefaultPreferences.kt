@@ -1,7 +1,9 @@
 package com.marmatsan.core_data.preferences
 
 import androidx.datastore.core.DataStore
+import com.marmatsan.core_domain.model.ActivityLevel
 import com.marmatsan.core_domain.model.Gender
+import com.marmatsan.core_domain.model.Goal
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_domain.preferences.PreferencesData
 import kotlinx.coroutines.flow.Flow
@@ -46,6 +48,56 @@ class DefaultPreferences @Inject constructor(
             it.copy(
                 userInfo = it.userInfo.copy(
                     weight = weight
+                )
+            )
+        }
+    }
+
+    override suspend fun saveActivityLevel(activityLevel: ActivityLevel) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    activityLevel = activityLevel
+                )
+            )
+        }
+    }
+
+    override suspend fun saveGoal(goal: Goal) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    goal = goal
+                )
+            )
+        }
+    }
+
+    override suspend fun saveCarbRatio(carbRatio: Float) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    carbRatio = carbRatio
+                )
+            )
+        }
+    }
+
+    override suspend fun saveProteinRatio(proteinRatio: Float) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    proteinRatio = proteinRatio
+                )
+            )
+        }
+    }
+
+    override suspend fun saveFatRatio(fatRatio: Float) {
+        dataStore.updateData {
+            it.copy(
+                userInfo = it.userInfo.copy(
+                    fatRatio = fatRatio
                 )
             )
         }

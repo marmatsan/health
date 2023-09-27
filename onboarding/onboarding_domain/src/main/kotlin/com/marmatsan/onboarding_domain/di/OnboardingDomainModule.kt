@@ -1,9 +1,6 @@
 package com.marmatsan.onboarding_domain.di
 
-import com.marmatsan.onboarding_domain.use_case.ValidateAge
-import com.marmatsan.onboarding_domain.use_case.ValidateGender
-import com.marmatsan.onboarding_domain.use_case.ValidateHeight
-import com.marmatsan.onboarding_domain.use_case.ValidateWeight
+import com.marmatsan.onboarding_domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +32,11 @@ object OnboardingDomainModule {
     @ViewModelScoped
     fun provideValidateWeightUseCase(): ValidateWeight {
         return ValidateWeight()
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideValidateNutrients(): ValidateNutrients {
+        return ValidateNutrients()
     }
 }

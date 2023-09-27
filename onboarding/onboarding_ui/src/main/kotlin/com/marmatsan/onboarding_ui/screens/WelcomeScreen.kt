@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.marmatsan.core_ui.dimensions.LocalSpacing
-import com.marmatsan.onboarding_ui.R
+import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 
 @Composable

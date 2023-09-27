@@ -3,15 +3,15 @@ package com.marmatsan.core_domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface ActivityLevel {
+sealed interface Goal {
 
     @Serializable
-    data object Low : ActivityLevel
+    data object LoseWeight : Goal
 
     @Serializable
-    data object Medium : ActivityLevel
+    data object KeepWeight : Goal
 
     @Serializable
-    data object High : ActivityLevel
+    data object GainWeight : Goal
 
 }

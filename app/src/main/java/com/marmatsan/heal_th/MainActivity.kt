@@ -19,10 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.marmatsan.heal_th.ui.theme.HealthTheme
 import com.marmatsan.onboarding_ui.events.WeightEvent
 import com.marmatsan.onboarding_ui.screens.*
-import com.marmatsan.onboarding_ui.viewmodels.AgeViewModel
-import com.marmatsan.onboarding_ui.viewmodels.GenderViewModel
-import com.marmatsan.onboarding_ui.viewmodels.HeightViewModel
-import com.marmatsan.onboarding_ui.viewmodels.WeightViewModel
+import com.marmatsan.onboarding_ui.viewmodels.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -110,18 +107,63 @@ class MainActivity : ComponentActivity() {
                                 uiEvent = viewModel.uiEvent,
                                 snackbarHostState = snackbarHostState,
                                 onNextClick = {
-                                    navController.navigate("weight")
+                                    navController.navigate("activity")
                                 },
                                 onBackClick = {
                                     navController.popBackStack()
                                 }
                             )
                         }
-                        composable(route = "activity"){
-
+                        composable(route = "activity") {
+                            val viewModel = hiltViewModel<ActivityLevelViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
+                            ActivityLevelScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                state = state,
+                                onEvent = viewModel::onEvent,
+                                uiEvent = viewModel.uiEvent,
+                                snackbarHostState = snackbarHostState,
+                                onNextClick = {
+                                    navController.navigate("goal")
+                                },
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
-                        composable(route = "goal"){
+                        composable(route = "goal") {
+                            val viewModel = hiltViewModel<GoalViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
+                            GoalScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                state = state,
+                                onEvent = viewModel::onEvent,
+                                uiEvent = viewModel.uiEvent,
+                                snackbarHostState = snackbarHostState,
+                                onNextClick = {
+                                    navController.navigate("nutrient_goal")
+                                },
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable(route = "nutrient_goal") {
+                            val viewModel = hiltViewModel<NutrientGoalViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
+                            NutrientGoalScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                state = state,
+                                onEvent = viewModel::onEvent,
+                                uiEvent = viewModel.uiEvent,
+                                snackbarHostState = snackbarHostState,
+                                onNextClick = {
 
+                                },
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
                     }
                 }

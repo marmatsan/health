@@ -16,7 +16,7 @@ import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import com.marmatsan.onboarding_ui.R
+import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.events.AgeEvent
 import com.marmatsan.onboarding_ui.states.AgeState
 

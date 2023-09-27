@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.marmatsan.core_domain.model.Gender
 import com.marmatsan.onboarding_ui.events.UiEvent
 import com.marmatsan.core_ui.dimensions.LocalSpacing
-import com.marmatsan.onboarding_ui.R
+import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.SelectableButton
 import com.marmatsan.onboarding_ui.events.GenderEvent

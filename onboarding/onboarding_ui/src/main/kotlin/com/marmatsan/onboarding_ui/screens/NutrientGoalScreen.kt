@@ -10,20 +10,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.onboarding_domain.R
+import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
-import com.marmatsan.onboarding_ui.events.WeightEvent
+import com.marmatsan.onboarding_ui.events.NutrientGoalEvent
 import com.marmatsan.onboarding_ui.events.UiEvent
-import com.marmatsan.onboarding_ui.states.WeightState
+import com.marmatsan.onboarding_ui.states.NutrientGoalState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 @Composable
-fun WeightScreen(
-    state: WeightState,
-    onEvent: (WeightEvent) -> Unit,
+fun NutrientGoalScreen(
+    state: NutrientGoalState,
+    onEvent: (NutrientGoalEvent) -> Unit,
     uiEvent: Flow<UiEvent>,
     snackbarHostState: SnackbarHostState,
     onNextClick: () -> Unit,
@@ -31,8 +31,8 @@ fun WeightScreen(
     modifier: Modifier = Modifier
 ) {
 
-    val context = LocalContext.current
     val spacing = LocalSpacing.current
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         uiEvent.collect { event ->
@@ -60,15 +60,31 @@ fun WeightScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.whats_your_weight)
+                text = stringResource(id = R.string.what_are_your_nutrient_goals)
             )
-            Spacer(Modifier.height(spacing.spaceMedium))
+            Spacer(modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = state.weight,
+                value = state.carbsPct,
                 onValueChange = {
-                    onEvent(WeightEvent.OnWeightChange(it))
+                    onEvent(NutrientGoalEvent.OnCarbPctChange(it))
                 },
-                unit = stringResource(R.string.kg)
+                unit = stringResource(id = R.string.percent_carbs)
+            )
+            Spacer(modifier.height(spacing.spaceMedium))
+            UnitTextField(
+                value = state.proteinPct,
+                onValueChange = {
+                    onEvent(NutrientGoalEvent.OnProteinPctChange(it))
+                },
+                unit = stringResource(id = R.string.percent_proteins)
+            )
+            Spacer(modifier.height(spacing.spaceMedium))
+            UnitTextField(
+                value = state.fatPct,
+                onValueChange = {
+                    onEvent(NutrientGoalEvent.OnFatPctChange(it))
+                },
+                unit = stringResource(id = R.string.percent_fats)
             )
         }
         Row(
@@ -79,31 +95,30 @@ fun WeightScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             ActionButton(
-                text = stringResource(R.string.back),
+                text = stringResource(id = R.string.back),
                 onClick = {
                     onBackClick()
                 }
             )
             ActionButton(
-                text = stringResource(R.string.next),
+                text = stringResource(id = R.string.next),
                 onClick = {
-                    onEvent(WeightEvent.OnNextClicked)
+                    onNextClick()
                 }
             )
         }
     }
-
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-fun WeightScreenPreview() {
-    WeightScreen(
-        state = WeightState(),
-        onEvent = { },
-        uiEvent = flow { },
+fun NutrientGoalScreenPreview() {
+    NutrientGoalScreen(
+        state = NutrientGoalState(),
+        onEvent = {},
+        uiEvent = flow {},
         snackbarHostState = SnackbarHostState(),
-        onNextClick = { },
-        onBackClick = { }
+        onNextClick = {},
+        onBackClick = {}
     )
 }
