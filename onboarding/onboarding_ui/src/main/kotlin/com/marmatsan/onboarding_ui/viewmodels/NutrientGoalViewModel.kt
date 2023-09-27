@@ -19,7 +19,6 @@ class NutrientGoalViewModel @Inject constructor(
     initialState = NutrientGoalState()
 ) {
 
-
     override suspend fun handleEvent(event: NutrientGoalEvent) {
         when (event) {
             is NutrientGoalEvent.OnCarbPctChange -> {
