@@ -87,7 +87,7 @@ fun AgeScreen(
             ActionButton(
                 text = stringResource(R.string.next),
                 onClick = {
-                    onEvent(AgeEvent.OnNextClicked)
+                    onEvent(AgeEvent.OnNextClick)
                 }
             )
         }

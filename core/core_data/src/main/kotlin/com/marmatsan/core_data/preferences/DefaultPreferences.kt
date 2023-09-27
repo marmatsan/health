@@ -16,7 +16,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveGender(gender: Gender) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     gender = gender
                 )
             )
@@ -26,7 +26,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveAge(age: Int) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     age = age
                 )
             )
@@ -36,7 +36,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveHeight(height: Int) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     height = height
                 )
             )
@@ -46,7 +46,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveWeight(weight: Int) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     weight = weight
                 )
             )
@@ -56,7 +56,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveActivityLevel(activityLevel: ActivityLevel) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     activityLevel = activityLevel
                 )
             )
@@ -66,7 +66,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveGoal(goal: Goal) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     goal = goal
                 )
             )
@@ -76,7 +76,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveCarbRatio(carbRatio: Float) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     carbRatio = carbRatio
                 )
             )
@@ -86,7 +86,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveProteinRatio(proteinRatio: Float) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     proteinRatio = proteinRatio
                 )
             )
@@ -96,7 +96,7 @@ class DefaultPreferences @Inject constructor(
     override suspend fun saveFatRatio(fatRatio: Float) {
         dataStore.updateData {
             it.copy(
-                userInfo = it.userInfo.copy(
+                userData = it.userData.copy(
                     fatRatio = fatRatio
                 )
             )

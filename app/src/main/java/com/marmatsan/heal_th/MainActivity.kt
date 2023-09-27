@@ -17,7 +17,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.marmatsan.heal_th.ui.theme.HealthTheme
-import com.marmatsan.onboarding_ui.events.WeightEvent
 import com.marmatsan.onboarding_ui.screens.*
 import com.marmatsan.onboarding_ui.viewmodels.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -132,9 +131,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(route = "goal") {
-                            val viewModel = hiltViewModel<GoalViewModel>()
+                            val viewModel = hiltViewModel<WeightGoalViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
-                            GoalScreen(
+                            WeightGoalScreen(
                                 modifier = Modifier.padding(paddingValues),
                                 state = state,
                                 onEvent = viewModel::onEvent,

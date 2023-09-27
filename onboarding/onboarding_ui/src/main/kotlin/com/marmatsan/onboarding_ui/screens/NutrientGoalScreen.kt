@@ -103,7 +103,7 @@ fun NutrientGoalScreen(
             ActionButton(
                 text = stringResource(id = R.string.next),
                 onClick = {
-                    onNextClick()
+                    onEvent(NutrientGoalEvent.OnNextClick)
                 }
             )
         }

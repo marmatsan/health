@@ -113,7 +113,7 @@ fun ActivityLevelScreen(
                 ActionButton(
                     text = stringResource(id = R.string.next),
                     onClick = {
-                        onNextClick()
+                        onEvent(ActivityLevelEvent.OnNextClick)
                     }
                 )
             }

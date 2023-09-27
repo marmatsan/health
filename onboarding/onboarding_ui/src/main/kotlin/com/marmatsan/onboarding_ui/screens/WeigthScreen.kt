@@ -87,7 +87,7 @@ fun WeightScreen(
             ActionButton(
                 text = stringResource(R.string.next),
                 onClick = {
-                    onEvent(WeightEvent.OnNextClicked)
+                    onEvent(WeightEvent.OnNextClick)
                 }
             )
         }

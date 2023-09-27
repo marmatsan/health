@@ -3,7 +3,7 @@ package com.marmatsan.core_domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserInfo(
+data class UserData(
     val gender: Gender? = null,
     val age: Int? = null,
     val height: Int? = null,

@@ -1,7 +1,6 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
@@ -28,7 +27,7 @@ class AgeViewModel @Inject constructor(
                 }
             }
 
-            is AgeEvent.OnNextClicked -> {
+            is AgeEvent.OnNextClick -> {
                 viewModelScope.launch {
                     when (val result = validateAge(age = state.value.age)) {
                         is UseCaseResult.Success -> {

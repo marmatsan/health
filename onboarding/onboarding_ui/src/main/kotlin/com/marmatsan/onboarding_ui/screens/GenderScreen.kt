@@ -88,7 +88,7 @@ fun GenderScreen(
             ActionButton(
                 text = stringResource(id = R.string.next),
                 onClick = {
-                    onEvent(GenderEvent.OnNextClicked)
+                    onEvent(GenderEvent.OnNextClick)
                 }
             )
         }

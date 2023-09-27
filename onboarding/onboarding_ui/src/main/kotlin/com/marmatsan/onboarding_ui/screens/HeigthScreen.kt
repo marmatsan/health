@@ -15,7 +15,6 @@ import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
 import com.marmatsan.onboarding_ui.events.HeightEvent
-import com.marmatsan.onboarding_ui.events.WeightEvent
 import com.marmatsan.onboarding_ui.events.UiEvent
 import com.marmatsan.onboarding_ui.states.HeightState
 import kotlinx.coroutines.flow.Flow
@@ -88,7 +87,7 @@ fun HeightScreen(
             ActionButton(
                 text = stringResource(R.string.next),
                 onClick = {
-                    onEvent(HeightEvent.OnNextClicked)
+                    onEvent(HeightEvent.OnNextClick)
                 }
             )
         }

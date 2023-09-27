@@ -4,5 +4,5 @@ import com.marmatsan.core_domain.model.Gender
 
 sealed interface GenderEvent : Event {
     data class OnGenderChange(val gender: Gender) : GenderEvent
-    data object OnNextClicked : GenderEvent
+    data object OnNextClick : GenderEvent
 }

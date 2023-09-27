@@ -1,14 +1,11 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
-import com.marmatsan.onboarding_domain.use_case.ValidateHeight
 import com.marmatsan.onboarding_domain.use_case.ValidateWeight
 import com.marmatsan.onboarding_ui.events.WeightEvent
-import com.marmatsan.onboarding_ui.states.HeightState
 import com.marmatsan.onboarding_ui.states.WeightState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,7 +27,7 @@ class WeightViewModel @Inject constructor(
                 }
             }
 
-            is WeightEvent.OnNextClicked -> {
+            is WeightEvent.OnNextClick -> {
                 viewModelScope.launch {
                     when (val result = validateWeight(weight = state.value.weight)) {
                         is UseCaseResult.Success -> {

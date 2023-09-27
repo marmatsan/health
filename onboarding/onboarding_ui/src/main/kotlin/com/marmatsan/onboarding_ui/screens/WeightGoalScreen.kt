@@ -10,24 +10,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.marmatsan.core_domain.model.ActivityLevel
 import com.marmatsan.core_domain.model.Goal
 import com.marmatsan.onboarding_domain.R
 import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.SelectableButton
-import com.marmatsan.onboarding_ui.events.ActivityLevelEvent
-import com.marmatsan.onboarding_ui.events.GoalEvent
+import com.marmatsan.onboarding_ui.events.WeightGoalEvent
 import com.marmatsan.onboarding_ui.events.UiEvent
-import com.marmatsan.onboarding_ui.states.ActivityLevelState
-import com.marmatsan.onboarding_ui.states.GoalState
+import com.marmatsan.onboarding_ui.states.WeightGoalState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 @Composable
-fun GoalScreen(
-    state: GoalState,
-    onEvent: (GoalEvent) -> Unit,
+fun WeightGoalScreen(
+    state: WeightGoalState,
+    onEvent: (WeightGoalEvent) -> Unit,
     uiEvent: Flow<UiEvent>,
     snackbarHostState: SnackbarHostState,
     onNextClick: () -> Unit,
@@ -77,7 +74,7 @@ fun GoalScreen(
                         text = stringResource(id = R.string.lose),
                         isSelected = state.goal is Goal.LoseWeight,
                         onClick = {
-                            onEvent(GoalEvent.OnGoalChange(Goal.LoseWeight))
+                            onEvent(WeightGoalEvent.OnWeightGoalChange(Goal.LoseWeight))
                         }
                     )
                     Spacer(
@@ -87,7 +84,7 @@ fun GoalScreen(
                         text = stringResource(id = R.string.keep),
                         isSelected = state.goal is Goal.KeepWeight,
                         onClick = {
-                            onEvent(GoalEvent.OnGoalChange(Goal.KeepWeight))
+                            onEvent(WeightGoalEvent.OnWeightGoalChange(Goal.KeepWeight))
                         }
                     )
                     Spacer(Modifier.width(spacing.spaceMedium))
@@ -95,7 +92,7 @@ fun GoalScreen(
                         text = stringResource(id = R.string.gain),
                         isSelected = state.goal is Goal.GainWeight,
                         onClick = {
-                            onEvent(GoalEvent.OnGoalChange(Goal.GainWeight))
+                            onEvent(WeightGoalEvent.OnWeightGoalChange(Goal.GainWeight))
                         }
                     )
                 }
@@ -128,8 +125,8 @@ fun GoalScreen(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun GoalScreenPreview() {
-    GoalScreen(
-        state = GoalState(),
+    WeightGoalScreen(
+        state = WeightGoalState(),
         onEvent = {},
         uiEvent = flow {},
         snackbarHostState = SnackbarHostState(),

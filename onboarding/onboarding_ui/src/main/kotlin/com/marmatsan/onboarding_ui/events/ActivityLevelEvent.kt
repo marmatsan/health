@@ -4,5 +4,5 @@ import com.marmatsan.core_domain.model.ActivityLevel
 
 sealed interface ActivityLevelEvent : Event {
     data class OnActivityLevelChange(val activityLevel: ActivityLevel) : ActivityLevelEvent
-    data object OnNextClicked : ActivityLevelEvent
+    data object OnNextClick : ActivityLevelEvent
 }
