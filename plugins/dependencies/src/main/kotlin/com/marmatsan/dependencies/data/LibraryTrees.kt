@@ -235,6 +235,17 @@ val ioLibraryTree = tree(Library(group = "io")) {
             )
         )
     )
+    tree(
+        Library(
+            group = "coil-kt", artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "coil-compose",
+                    artifacts = listOf("coil-compose"),
+                    version = "2.4.0"
+                )
+            )
+        )
+    )
 }
 
 val libraryTrees = listOf(androidXLibraryTree, comLibraryTree, orgLibraryTree, ioLibraryTree)
