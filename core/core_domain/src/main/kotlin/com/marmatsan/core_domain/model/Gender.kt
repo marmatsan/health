@@ -1,25 +1,19 @@
 package com.marmatsan.core_domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
-@Parcelize
 @Serializable
-sealed interface Gender : Parcelable {
+sealed interface Gender {
     enum class GenderType {
         MALE, FEMALE, UNKNOWN
     }
 
-    @Parcelize
     @Serializable
     data object Male : Gender
 
-    @Parcelize
     @Serializable
     data object Female : Gender
 
-    @Parcelize
     @Serializable
     data object Unknown : Gender
 
