@@ -1,6 +1,7 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
+import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeightViewModel @Inject constructor(
+    private val preferences: Preferences,
     private val validateWeight: ValidateWeight,
     private val filterOutDigits: FilterOutDigits
 ) : BaseViewModel<WeightState, WeightEvent>(

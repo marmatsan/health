@@ -1,6 +1,7 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
+import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
 import com.marmatsan.onboarding_domain.use_case.ValidateGender
 import com.marmatsan.onboarding_ui.events.GenderEvent
@@ -11,6 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenderViewModel @Inject constructor(
+    private val preferences: Preferences,
     private val validateGender: ValidateGender
 ) : BaseViewModel<GenderState, GenderEvent>(
     initialState = GenderState()
