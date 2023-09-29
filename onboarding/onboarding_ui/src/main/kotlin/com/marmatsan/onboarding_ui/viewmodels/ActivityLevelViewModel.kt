@@ -3,9 +3,12 @@ package com.marmatsan.onboarding_ui.viewmodels
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.onboarding_ui.events.ActivityLevelEvent
 import com.marmatsan.onboarding_ui.states.ActivityLevelState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ActivityLevelViewModel : BaseViewModel<ActivityLevelState, ActivityLevelEvent>(
+@HiltViewModel
+class ActivityLevelViewModel @Inject constructor() : BaseViewModel<ActivityLevelState, ActivityLevelEvent>(
     initialState = ActivityLevelState()
 ) {
 
