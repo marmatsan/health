@@ -1,4 +1,4 @@
-package com.marmatsan.tracker_ui.screens.ovewview.components
+package com.marmatsan.tracker_ui.screens.overview.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

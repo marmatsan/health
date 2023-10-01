@@ -16,6 +16,7 @@ interface Preferences {
     suspend fun saveCarbRatio(carbRatio: Float)
     suspend fun saveProteinRatio(proteinRatio: Float)
     suspend fun saveFatRatio(fatRatio: Float)
+    suspend fun saveShowOnboarding(showOnboarding: Boolean)
 
     // Load data
     fun preferencesDataFlow(): Flow<PreferencesData>

@@ -1,4 +1,4 @@
-package com.marmatsan.onboarding_ui.events
+package com.marmatsan.core_ui.event
 
 import com.marmatsan.core_domain.util.UiText
 

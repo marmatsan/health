@@ -11,6 +11,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
@@ -19,18 +20,21 @@ import androidx.navigation.compose.rememberNavController
 import com.marmatsan.heal_th.ui.theme.HealthTheme
 import com.marmatsan.onboarding_ui.screens.*
 import com.marmatsan.onboarding_ui.viewmodels.*
+import com.marmatsan.tracker_ui.screens.overview.OverviewScreen
+import com.marmatsan.tracker_ui.viewmodels.OverviewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen().setKeepOnScreenCondition { true }
+
         setContent {
             HealthTheme {
-
-                val showOnboarding = true // TODO: Load from datastore
                 val snackbarHostState = remember { SnackbarHostState() }
-
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -157,11 +161,21 @@ class MainActivity : ComponentActivity() {
                                 uiEvent = viewModel.uiEvent,
                                 snackbarHostState = snackbarHostState,
                                 onNextClick = {
-
+                                    navController.navigate("overview")
                                 },
                                 onBackClick = {
                                     navController.popBackStack()
                                 }
+                            )
+                        }
+                        composable(route = "overview") {
+                            val viewmodel = hiltViewModel<OverviewViewModel>()
+                            val state by viewmodel.state.collectAsStateWithLifecycle()
+                            OverviewScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                state = state,
+                                onEvent = viewmodel::onEvent,
+                                uiEvent = viewmodel.uiEvent
                             )
                         }
                     }
@@ -169,4 +183,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

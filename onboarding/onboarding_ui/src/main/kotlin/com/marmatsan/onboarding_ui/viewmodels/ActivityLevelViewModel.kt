@@ -2,18 +2,22 @@ package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.preferences.Preferences
+import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_ui.events.ActivityLevelEvent
 import com.marmatsan.onboarding_ui.states.ActivityLevelState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ActivityLevelViewModel @Inject constructor(
     private val preferences: Preferences
-) : BaseViewModel<ActivityLevelState, ActivityLevelEvent>(
-    initialState = ActivityLevelState()
-) {
+) : BaseViewModel<ActivityLevelEvent>() {
+
+    private val _state = MutableStateFlow(ActivityLevelState())
+    val state = _state.asStateFlow()
 
     override suspend fun handleEvent(event: ActivityLevelEvent) {
         when (event) {

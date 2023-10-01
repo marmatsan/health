@@ -3,3 +3,7 @@ plugins {
     id("com.marmatsan.android")
     id("com.marmatsan.compose")
 }
+
+dependencies {
+    implementation(projects.core.coreDomain)
+}

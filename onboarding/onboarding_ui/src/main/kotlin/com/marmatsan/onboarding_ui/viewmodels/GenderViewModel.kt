@@ -2,11 +2,14 @@ package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.preferences.Preferences
+import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
 import com.marmatsan.onboarding_domain.use_case.ValidateGender
 import com.marmatsan.onboarding_ui.events.GenderEvent
 import com.marmatsan.onboarding_ui.states.GenderState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,9 +17,10 @@ import javax.inject.Inject
 class GenderViewModel @Inject constructor(
     private val preferences: Preferences,
     private val validateGender: ValidateGender
-) : BaseViewModel<GenderState, GenderEvent>(
-    initialState = GenderState()
-) {
+) : BaseViewModel<GenderEvent>() {
+
+    private val _state = MutableStateFlow(GenderState())
+    val state = _state.asStateFlow()
 
     override suspend fun handleEvent(event: GenderEvent) {
         when (event) {

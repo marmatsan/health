@@ -1,4 +1,4 @@
-package com.marmatsan.tracker_ui.screens.ovewview.components
+package com.marmatsan.tracker_ui.screens.overview.components
 
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
@@ -20,11 +20,11 @@ import com.marmatsan.core_ui.dimensions.theme.FatColor
 import com.marmatsan.core_ui.dimensions.theme.ProteinColor
 import com.marmatsan.tracker_domain.R
 import com.marmatsan.tracker_ui.components.UnitDisplay
-import com.marmatsan.tracker_ui.states.TrackerOverviewState
+import com.marmatsan.tracker_ui.states.NutrientsHeaderState
 
 @Composable
 fun NutrientsHeader(
-    state: TrackerOverviewState,
+    state: NutrientsHeaderState,
     modifier: Modifier = Modifier
 ) {
     val spacing = LocalSpacing.current
@@ -107,6 +107,6 @@ fun NutrientsHeader(
 @Composable
 fun NutrientsHeaderPreview() {
     NutrientsHeader(
-        state = TrackerOverviewState()
+        state = NutrientsHeaderState()
     )
 }

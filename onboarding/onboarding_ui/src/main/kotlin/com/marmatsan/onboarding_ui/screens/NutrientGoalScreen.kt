@@ -15,7 +15,7 @@ import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
 import com.marmatsan.onboarding_ui.events.NutrientGoalEvent
-import com.marmatsan.onboarding_ui.events.UiEvent
+import com.marmatsan.core_ui.event.UiEvent
 import com.marmatsan.onboarding_ui.states.NutrientGoalState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

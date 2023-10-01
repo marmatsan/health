@@ -15,7 +15,7 @@ import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
 import com.marmatsan.onboarding_ui.events.WeightEvent
-import com.marmatsan.onboarding_ui.events.UiEvent
+import com.marmatsan.core_ui.event.UiEvent
 import com.marmatsan.onboarding_ui.states.WeightState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

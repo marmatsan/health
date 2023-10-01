@@ -15,7 +15,7 @@ import com.marmatsan.onboarding_domain.R
 import com.marmatsan.onboarding_ui.components.ActionButton
 import com.marmatsan.onboarding_ui.components.UnitTextField
 import com.marmatsan.onboarding_ui.events.HeightEvent
-import com.marmatsan.onboarding_ui.events.UiEvent
+import com.marmatsan.core_ui.event.UiEvent
 import com.marmatsan.onboarding_ui.states.HeightState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

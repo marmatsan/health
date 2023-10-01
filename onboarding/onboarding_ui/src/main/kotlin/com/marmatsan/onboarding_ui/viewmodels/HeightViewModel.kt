@@ -2,6 +2,7 @@ package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.preferences.Preferences
+import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
@@ -9,6 +10,8 @@ import com.marmatsan.onboarding_domain.use_case.ValidateHeight
 import com.marmatsan.onboarding_ui.events.HeightEvent
 import com.marmatsan.onboarding_ui.states.HeightState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,9 +20,10 @@ class HeightViewModel @Inject constructor(
     private val preferences: Preferences,
     private val validateHeight: ValidateHeight,
     private val filterOutDigits: FilterOutDigits
-) : BaseViewModel<HeightState, HeightEvent>(
-    initialState = HeightState()
-) {
+) : BaseViewModel<HeightEvent>() {
+
+    private val _state = MutableStateFlow(HeightState())
+    val state = _state.asStateFlow()
 
     override suspend fun handleEvent(event: HeightEvent) {
         when (event) {

@@ -35,6 +35,12 @@ dependencies {
     implementation(projects.onboarding.onboardingDomain)
     implementation(projects.onboarding.onboardingUi)
 
+    // Tracker
+    implementation(projects.tracker.trackerData)
+    implementation(projects.tracker.trackerDomain)
+    implementation(projects.tracker.trackerUi)
+
     /* Libraries */
     implementation(libs.androidx.datastore)
+    implementation(libs.androidx.core.core.splashscreen)
 }

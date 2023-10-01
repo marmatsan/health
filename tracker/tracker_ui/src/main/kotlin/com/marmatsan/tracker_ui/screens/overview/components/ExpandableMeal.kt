@@ -1,4 +1,4 @@
-package com.marmatsan.tracker_ui.screens.ovewview.components
+package com.marmatsan.tracker_ui.screens.overview.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

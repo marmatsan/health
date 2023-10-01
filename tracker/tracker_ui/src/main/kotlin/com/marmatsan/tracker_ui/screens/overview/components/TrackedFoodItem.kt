@@ -1,4 +1,4 @@
-package com.marmatsan.tracker_ui.screens.ovewview.components
+package com.marmatsan.tracker_ui.screens.overview.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,13 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.tracker_domain.R
 import com.marmatsan.tracker_domain.models.Meal
@@ -53,11 +56,10 @@ fun TrackedFoodItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = rememberImagePainter(
-                data = trackedFood.imageUrl,
-                builder = {
+            painter = rememberAsyncImagePainter(
+                ImageRequest.Builder(LocalContext.current).data(data = trackedFood.imageUrl).apply(block = fun ImageRequest.Builder.() {
                     crossfade(true)
-                }
+                }).build()
             ),
             contentDescription = trackedFood.name,
             contentScale = ContentScale.Crop,

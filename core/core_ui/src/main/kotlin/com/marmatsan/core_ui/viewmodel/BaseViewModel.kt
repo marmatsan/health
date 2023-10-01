@@ -1,23 +1,15 @@
-package com.marmatsan.onboarding_ui.viewmodels
+package com.marmatsan.core_ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.util.UiText
-import com.marmatsan.onboarding_ui.events.Event
-import com.marmatsan.onboarding_ui.events.UiEvent
-import com.marmatsan.onboarding_ui.states.State
+import com.marmatsan.core_ui.event.Event
+import com.marmatsan.core_ui.event.UiEvent
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<T : State, E : Event>(
-    initialState: T
-) : ViewModel() {
-
-    protected val _state = MutableStateFlow(initialState)
-    var state = _state.asStateFlow()
+abstract class BaseViewModel<E : Event> : ViewModel() {
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()

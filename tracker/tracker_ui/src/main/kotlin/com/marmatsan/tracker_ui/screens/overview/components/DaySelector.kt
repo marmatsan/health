@@ -1,4 +1,4 @@
-package com.marmatsan.tracker_ui.screens.ovewview.components
+package com.marmatsan.tracker_ui.screens.overview.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -22,8 +22,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun DaySelector(
     date: LocalDate,
-    onPreviousDayClick: () -> Unit,
     onNextDayClick: () -> Unit,
+    onPreviousDayClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(

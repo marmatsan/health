@@ -103,6 +103,14 @@ class DefaultPreferences @Inject constructor(
         }
     }
 
+    override suspend fun saveShowOnboarding(showOnboarding: Boolean) {
+        dataStore.updateData {
+            it.copy(
+                showOnboarding = showOnboarding
+            )
+        }
+    }
+
     override fun preferencesDataFlow(): Flow<PreferencesData> {
         return dataStore.data
     }

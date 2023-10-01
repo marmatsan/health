@@ -38,5 +38,5 @@ val defaultMeals = listOf(
         name = UiText.StringResource(R.string.snacks),
         drawableRes = uiR.drawable.ic_snack,
         meal = Meal.Snack
-    ),
+    )
 )

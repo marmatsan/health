@@ -8,9 +8,14 @@ val androidXLibraryTree = tree(Library(group = "androidx")) {
         Library(
             group = "core", artifactsGroups = listOf(
                 ArtifactsGroup(
-                    name = "core",
+                    name = "core-ktx",
                     artifacts = listOf("core-ktx"),
                     version = "1.10.1"
+                ),
+                ArtifactsGroup(
+                    name = "core-splashscreen",
+                    artifacts = listOf("core-splashscreen"),
+                    version = "1.0.0"
                 )
             )
         )
