@@ -6,24 +6,21 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.marmatsan.core_data.preferences.DefaultPreferences
 import com.marmatsan.core_data.preferences.PreferencesDataSerializer
+import com.marmatsan.core_domain.PreferencesData
 import com.marmatsan.core_domain.preferences.Preferences
-import com.marmatsan.core_domain.preferences.PreferencesData
 import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private const val DATA_STORE_FILE_NAME = "user_info.json"
+    private const val DATA_STORE_FILE_NAME = "preferences_data.pb"
 
     @Singleton
     @Provides
@@ -32,9 +29,7 @@ object AppModule {
     ): DataStore<PreferencesData> {
         return DataStoreFactory.create(
             serializer = PreferencesDataSerializer,
-            produceFile = { appContext.dataStoreFile(DATA_STORE_FILE_NAME) },
-            corruptionHandler = null,
-            scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+            produceFile = { appContext.dataStoreFile(DATA_STORE_FILE_NAME) }
         )
     }
 

@@ -1,6 +1,8 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
+import com.marmatsan.core_domain.model.WeightGoal
+import com.marmatsan.core_domain.WeightGoal as ProtoWeightGoal
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_ui.events.WeightGoalEvent
@@ -22,12 +24,16 @@ class WeightGoalViewModel @Inject constructor(
     override suspend fun handleEvent(event: WeightGoalEvent) {
         when (event) {
             is WeightGoalEvent.OnWeightGoalChange -> {
-                _state.value = _state.value.copy(goal = event.goal)
+                _state.value = _state.value.copy(weightGoal = event.weightGoal)
             }
 
             is WeightGoalEvent.OnNextClick -> {
                 viewModelScope.launch {
-                    preferences.saveGoal(state.value.goal)
+                    when (state.value.weightGoal) {
+                        WeightGoal.GainWeight -> preferences.saveWeightGoal(ProtoWeightGoal.GAIN_WEIGHT)
+                        WeightGoal.KeepWeight -> preferences.saveWeightGoal(ProtoWeightGoal.KEEP_WEIGHT)
+                        WeightGoal.LoseWeight -> preferences.saveWeightGoal(ProtoWeightGoal.LOSE_WEIGHT)
+                    }
                     sendSuccessEvent()
                 }
             }

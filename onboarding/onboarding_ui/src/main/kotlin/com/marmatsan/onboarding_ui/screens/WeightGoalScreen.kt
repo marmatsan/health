@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.marmatsan.core_domain.model.Goal
+import com.marmatsan.core_domain.model.WeightGoal
 import com.marmatsan.onboarding_domain.R
 import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.onboarding_ui.components.ActionButton
@@ -72,9 +72,9 @@ fun WeightGoalScreen(
                 Row {
                     SelectableButton(
                         text = stringResource(id = R.string.lose),
-                        isSelected = state.goal is Goal.LoseWeight,
+                        isSelected = state.weightGoal is WeightGoal.LoseWeight,
                         onClick = {
-                            onEvent(WeightGoalEvent.OnWeightGoalChange(Goal.LoseWeight))
+                            onEvent(WeightGoalEvent.OnWeightGoalChange(WeightGoal.LoseWeight))
                         }
                     )
                     Spacer(
@@ -82,17 +82,17 @@ fun WeightGoalScreen(
                     )
                     SelectableButton(
                         text = stringResource(id = R.string.keep),
-                        isSelected = state.goal is Goal.KeepWeight,
+                        isSelected = state.weightGoal is WeightGoal.KeepWeight,
                         onClick = {
-                            onEvent(WeightGoalEvent.OnWeightGoalChange(Goal.KeepWeight))
+                            onEvent(WeightGoalEvent.OnWeightGoalChange(WeightGoal.KeepWeight))
                         }
                     )
                     Spacer(Modifier.width(spacing.spaceMedium))
                     SelectableButton(
                         text = stringResource(id = R.string.gain),
-                        isSelected = state.goal is Goal.GainWeight,
+                        isSelected = state.weightGoal is WeightGoal.GainWeight,
                         onClick = {
-                            onEvent(WeightGoalEvent.OnWeightGoalChange(Goal.GainWeight))
+                            onEvent(WeightGoalEvent.OnWeightGoalChange(WeightGoal.GainWeight))
                         }
                     )
                 }

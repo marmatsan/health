@@ -25,7 +25,7 @@ val androidXLibraryTree = tree(Library(group = "androidx")) {
             group = "datastore", artifactsGroups = listOf(
                 ArtifactsGroup(
                     name = "datastore",
-                    artifacts = listOf("datastore"),
+                    artifacts = listOf("datastore", "datastore-core"),
                     version = "1.0.0"
                 )
             )
@@ -179,6 +179,17 @@ val comLibraryTree = tree(Library(group = "com")) {
                         name = "dagger",
                         artifacts = listOf("hilt-android", "hilt-android-compiler"),
                         version = "2.48"
+                    )
+                )
+            )
+        )
+        tree(
+            Library(
+                group = "protobuf", artifactsGroups = listOf(
+                    ArtifactsGroup(
+                        name = "protobuf",
+                        artifacts = listOf("protobuf-javalite"),
+                        version = "3.24.3"
                     )
                 )
             )

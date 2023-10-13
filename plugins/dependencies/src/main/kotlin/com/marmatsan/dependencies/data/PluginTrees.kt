@@ -16,6 +16,7 @@ val comPluginTree = tree(Plugin(id = "com")) {
                 tree(Plugin(id = "android", version = "2.48"))
             }
         }
+        tree(Plugin(id = "protobuf", version = "0.9.4"))
     }
 }
 

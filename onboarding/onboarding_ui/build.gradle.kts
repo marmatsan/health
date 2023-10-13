@@ -12,4 +12,7 @@ dependencies {
     implementation(projects.core.coreDomain)
     // Onboarding
     implementation(projects.onboarding.onboardingDomain)
+
+    /* Libraries */
+    implementation(libs.com.google.protobuf)
 }

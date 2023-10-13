@@ -1,6 +1,8 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
+import com.marmatsan.core_domain.model.Gender
+import com.marmatsan.core_domain.Gender as ProtoGender
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_domain.use_case.UseCaseResult
@@ -32,7 +34,11 @@ class GenderViewModel @Inject constructor(
                 viewModelScope.launch {
                     when (val result = validateGender(state.value.gender)) {
                         is UseCaseResult.Success -> {
-                            preferences.saveGender(result.data)
+                            when (result.data) {
+                                Gender.Female -> preferences.saveGender(ProtoGender.FEMALE)
+                                Gender.Male -> preferences.saveGender(ProtoGender.MALE)
+                                Gender.Unknown -> preferences.saveGender(ProtoGender.UNKNOWN)
+                            }
                             sendSuccessEvent()
                         }
 

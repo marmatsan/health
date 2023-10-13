@@ -1,8 +1,9 @@
 package com.marmatsan.core_domain.preferences
 
-import com.marmatsan.core_domain.model.ActivityLevel
-import com.marmatsan.core_domain.model.Gender
-import com.marmatsan.core_domain.model.Goal
+import com.marmatsan.core_domain.ActivityLevel
+import com.marmatsan.core_domain.Gender
+import com.marmatsan.core_domain.WeightGoal
+import com.marmatsan.core_domain.PreferencesData
 import kotlinx.coroutines.flow.Flow
 
 interface Preferences {
@@ -12,12 +13,13 @@ interface Preferences {
     suspend fun saveHeight(height: Int)
     suspend fun saveWeight(weight: Int)
     suspend fun saveActivityLevel(activityLevel: ActivityLevel)
-    suspend fun saveGoal(goal: Goal)
+    suspend fun saveWeightGoal(weightGoal: WeightGoal)
     suspend fun saveCarbRatio(carbRatio: Float)
     suspend fun saveProteinRatio(proteinRatio: Float)
     suspend fun saveFatRatio(fatRatio: Float)
-    suspend fun saveShowOnboarding(showOnboarding: Boolean)
+    suspend fun saveOnboardingCompleted(onboardingCompleted: Boolean)
 
     // Load data
+    suspend fun readOnboardingCompleted(): Boolean
     fun preferencesDataFlow(): Flow<PreferencesData>
 }

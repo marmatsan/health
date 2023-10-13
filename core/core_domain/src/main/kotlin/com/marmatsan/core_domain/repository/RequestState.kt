@@ -1,10 +1,7 @@
 package com.marmatsan.core_domain.repository
 
-sealed class RequestState<T>(
-    val data: T? = null,
-    val message: String? = null
-) {
-    class Loading<T>(val isLoading: Boolean = true) : RequestState<T>()
-    class Success<T>(data: T?) : RequestState<T>(data)
-    class Error<T>(message: String, data: T? = null) : RequestState<T>(data, message)
+sealed interface RequestState<T> {
+    data class Loading<T>(val isLoading: Boolean = true) : RequestState<T>
+    data class Success<T>(val data: T?) : RequestState<T>
+    data class Error<T>(val message: String) : RequestState<T>
 }

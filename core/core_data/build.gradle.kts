@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.core.coreDomain)
 
     /* Libraries */
-    implementation(libs.androidx.datastore)
     implementation(libs.org.jetbrains.kotlinx)
+    implementation(libs.com.google.protobuf)
+    implementation(libs.bundles.androidx.datastore.datastore)
 }

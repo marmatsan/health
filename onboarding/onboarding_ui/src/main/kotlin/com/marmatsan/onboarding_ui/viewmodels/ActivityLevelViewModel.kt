@@ -1,6 +1,8 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
+import com.marmatsan.core_domain.model.ActivityLevel
+import com.marmatsan.core_domain.ActivityLevel as ProtoActivityLevel
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_ui.events.ActivityLevelEvent
@@ -27,7 +29,11 @@ class ActivityLevelViewModel @Inject constructor(
 
             is ActivityLevelEvent.OnNextClick -> {
                 viewModelScope.launch {
-                    preferences.saveActivityLevel(state.value.activityLevel)
+                    when (state.value.activityLevel) {
+                        ActivityLevel.High -> preferences.saveActivityLevel(ProtoActivityLevel.HIGH)
+                        ActivityLevel.Medium -> preferences.saveActivityLevel(ProtoActivityLevel.MEDIUM)
+                        ActivityLevel.Low -> preferences.saveActivityLevel(ProtoActivityLevel.LOW)
+                    }
                     sendSuccessEvent()
                 }
             }

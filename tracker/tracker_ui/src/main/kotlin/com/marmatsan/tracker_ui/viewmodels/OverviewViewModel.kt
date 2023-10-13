@@ -24,7 +24,7 @@ class OverviewViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            preferences.saveShowOnboarding(false)
+            preferences.saveOnboardingCompleted(onboardingCompleted = true)
         }
     }
 

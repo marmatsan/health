@@ -6,4 +6,5 @@ plugins {
     alias(plugins.plugins.com.google.dagger.hilt.android) apply false
     alias(plugins.plugins.org.jetbrains.kotlin.plugin.serialization) apply false
     alias(plugins.plugins.org.jetbrains.kotlin.plugin.parcelize) apply false
+    alias(plugins.plugins.com.google.protobuf) apply false
 }
