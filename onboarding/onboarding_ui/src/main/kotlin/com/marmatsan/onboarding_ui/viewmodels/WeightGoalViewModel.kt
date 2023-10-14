@@ -1,7 +1,7 @@
 package com.marmatsan.onboarding_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.marmatsan.core_domain.model.WeightGoal
+import com.marmatsan.core_domain.preferences.model.WeightGoal
 import com.marmatsan.core_domain.WeightGoal as ProtoWeightGoal
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_ui.viewmodel.BaseViewModel

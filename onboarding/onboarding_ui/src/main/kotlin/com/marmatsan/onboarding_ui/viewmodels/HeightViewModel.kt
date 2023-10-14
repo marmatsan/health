@@ -4,9 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.preferences.Preferences
 import com.marmatsan.core_ui.viewmodel.BaseViewModel
 import com.marmatsan.onboarding_domain.extensions.hasAtMostLengthOf
-import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
-import com.marmatsan.onboarding_domain.use_case.UseCaseResult
-import com.marmatsan.onboarding_domain.use_case.ValidateHeight
+import com.marmatsan.core_domain.usecases.FilterOutDigits
+import com.marmatsan.core_domain.usecases.UseCaseResult
+import com.marmatsan.onboarding_domain.usecases.ValidateHeight
 import com.marmatsan.onboarding_ui.events.HeightEvent
 import com.marmatsan.onboarding_ui.states.HeightState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -42,6 +42,17 @@ val androidXLibraryTree = tree(Library(group = "androidx")) {
             )
         )
     )
+    tree(
+        Library(
+            group = "room", artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "room",
+                    artifacts = listOf("room-runtime", "room-compiler", "room-ktx"),
+                    version = "2.5.0"
+                )
+            )
+        )
+    )
 }
 
 val androidXComposeLibraryTree = tree(Library(group = "androidx")) {

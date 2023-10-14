@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.marmatsan.core_domain.model.WeightGoal
+import com.marmatsan.core_domain.preferences.model.WeightGoal
 import com.marmatsan.onboarding_domain.R
 import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.onboarding_ui.components.ActionButton

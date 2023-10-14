@@ -1,4 +1,4 @@
-package com.marmatsan.onboarding_domain.use_case
+package com.marmatsan.core_domain.usecases
 
 import com.marmatsan.core_domain.util.UiText
 

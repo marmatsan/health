@@ -35,9 +35,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             HealthTheme {
-
                 val startDestination by splashScreenViewModel.startDestination.collectAsStateWithLifecycle()
-
                 val snackbarHostState = remember { SnackbarHostState() }
 
                 Scaffold(

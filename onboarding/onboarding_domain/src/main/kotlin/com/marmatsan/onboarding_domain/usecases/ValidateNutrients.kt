@@ -1,7 +1,8 @@
-package com.marmatsan.onboarding_domain.use_case
+package com.marmatsan.onboarding_domain.usecases
 
 import com.marmatsan.onboarding_domain.R
 import com.marmatsan.core_domain.util.UiText
+import com.marmatsan.core_domain.usecases.UseCaseResult
 
 class ValidateNutrients {
     operator fun invoke(

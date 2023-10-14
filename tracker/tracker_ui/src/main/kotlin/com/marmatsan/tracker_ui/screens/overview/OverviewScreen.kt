@@ -20,6 +20,7 @@ import com.marmatsan.tracker_ui.screens.overview.components.*
 import com.marmatsan.tracker_ui.states.OverviewState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.time.LocalDate
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
@@ -27,7 +28,8 @@ fun OverviewScreen(
     state: OverviewState,
     onEvent: (OverviewEvent) -> Unit,
     uiEvent: Flow<UiEvent>,
-    modifier: Modifier = Modifier,
+    navigateToSearch: (String, LocalDate) -> Unit,
+    modifier: Modifier = Modifier
 ) {
 
     val spacing = LocalSpacing.current
@@ -96,7 +98,10 @@ fun OverviewScreen(
                             mealItem.name.asString(context).lowercase()
                         ),
                         onClick = {
-                            onEvent(OverviewEvent.OnAddFoodClick(mealItem.name.asString(context)))
+                            navigateToSearch(
+                                mealItem.name.asString(context),
+                                state.overviewFoodsState.date
+                            )
                         }
                     )
                 }
@@ -113,6 +118,7 @@ fun TrackerOverviewScreenPreview() {
         modifier = Modifier,
         state = OverviewState(),
         onEvent = {},
-        uiEvent = flow { }
+        uiEvent = flow { },
+        navigateToSearch = { _, _ -> }
     )
 }

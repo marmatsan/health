@@ -1,6 +1,6 @@
 package com.marmatsan.onboarding_domain.di
 
-import com.marmatsan.onboarding_domain.use_case.*
+import com.marmatsan.onboarding_domain.usecases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

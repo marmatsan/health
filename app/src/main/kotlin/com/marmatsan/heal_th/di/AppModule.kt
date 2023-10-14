@@ -8,7 +8,7 @@ import com.marmatsan.core_data.preferences.DefaultPreferences
 import com.marmatsan.core_data.preferences.PreferencesDataSerializer
 import com.marmatsan.core_domain.PreferencesData
 import com.marmatsan.core_domain.preferences.Preferences
-import com.marmatsan.onboarding_domain.use_case.FilterOutDigits
+import com.marmatsan.core_domain.usecases.FilterOutDigits
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

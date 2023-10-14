@@ -4,5 +4,9 @@ plugins {
 }
 
 dependencies {
+    /* Modules */
     implementation(projects.core.coreDomain)
+
+    /* Libraries */
+    implementation(libs.com.google.protobuf)
 }
