@@ -113,7 +113,7 @@ fun OverviewScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun TrackerOverviewScreenPreview() {
+fun OverviewScreenPreview() {
     OverviewScreen(
         modifier = Modifier,
         state = OverviewState(),

@@ -21,7 +21,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -45,7 +48,22 @@ fun SearchTextField(
         modifier = modifier
     ) {
         BasicTextField(
+            modifier = Modifier
+                .clip(RoundedCornerShape(5.dp))
+                .padding(2.dp)
+                .shadow(
+                    elevation = 2.dp,
+                    shape = RoundedCornerShape(5.dp)
+                )
+                .background(MaterialTheme.colorScheme.secondary)
+                .fillMaxWidth()
+                .padding(all = spacing.spaceMedium)
+                .onFocusChanged { onFocusChanged(it) },
             value = text,
+            textStyle = TextStyle(
+                color = MaterialTheme.colorScheme.onSecondary,
+                fontSize = MaterialTheme.typography.bodyLarge.fontSize
+            ),
             onValueChange = onValueChange,
             singleLine = true,
             keyboardActions = KeyboardActions(
@@ -58,17 +76,7 @@ fun SearchTextField(
                 imeAction = ImeAction.Search,
                 keyboardType = KeyboardType.Text
             ),
-            modifier = Modifier
-                .clip(RoundedCornerShape(5.dp))
-                .padding(2.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = RoundedCornerShape(5.dp)
-                )
-                .background(MaterialTheme.colorScheme.secondary)
-                .fillMaxWidth()
-                .padding(all = spacing.spaceMedium)
-                .onFocusChanged { onFocusChanged(it) }
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.onSecondary)
         )
         if (hintVisible) {
             Text(

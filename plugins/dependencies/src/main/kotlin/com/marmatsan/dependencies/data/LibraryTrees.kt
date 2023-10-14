@@ -273,6 +273,24 @@ val ioLibraryTree = tree(Library(group = "io")) {
             )
         )
     )
+    tree(
+        Library(
+            group = "ktor", artifactsGroups = listOf(
+                ArtifactsGroup(
+                    name = "ktor",
+                    artifacts = listOf(
+                        "ktor-client-core",
+                        "ktor-client-android",
+                        "ktor-client-serialization",
+                        "ktor-client-content-negotiation",
+                        "ktor-serialization-kotlinx-json",
+                        "ktor-client-logging"
+                    ),
+                    version = "2.3.5"
+                )
+            )
+        )
+    )
 }
 
 val libraryTrees = listOf(androidXLibraryTree, comLibraryTree, orgLibraryTree, ioLibraryTree)

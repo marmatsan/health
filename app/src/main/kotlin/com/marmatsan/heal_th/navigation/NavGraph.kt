@@ -167,7 +167,7 @@ fun SetupNavGraph(
                 uiEvent = viewmodel.uiEvent,
                 navigateToSearch = { mealName, date ->
                     navController.navigate(
-                        route = "search" + "/$mealName" + "/${date.dayOfMonth}" + "/${date.month}+" + "/${date.year}"
+                        route = "search" + "/$mealName" + "/${date.dayOfMonth}" + "/${date.month.value}" + "/${date.year}"
                     )
                 }
             )

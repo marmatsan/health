@@ -1,5 +1,6 @@
 package com.marmatsan.tracker_ui.screens.search
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,13 +16,16 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.marmatsan.core_ui.dimensions.LocalSpacing
 import com.marmatsan.core_ui.event.UiEvent
 import com.marmatsan.tracker_domain.R
+import com.marmatsan.tracker_ui.R as uiR
 import com.marmatsan.tracker_domain.models.Meal
 import com.marmatsan.tracker_ui.events.SearchEvent
 import com.marmatsan.tracker_ui.screens.search.components.SearchTextField
@@ -76,11 +80,30 @@ fun SearchScreen(
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(id = R.string.add_meal, mealName.lowercase()),
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.titleMedium
-            )
+            Row(
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = R.string.add_meal, mealName.lowercase()),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(Modifier.width(10.dp))
+                Image(
+                    modifier = modifier.size(30.dp),
+                    painter = painterResource(
+                        id = when (mealName) {
+                            "Breakfast" -> uiR.drawable.ic_breakfast
+                            "Lunch" -> uiR.drawable.ic_lunch
+                            "Dinner" -> uiR.drawable.ic_dinner
+                            "Snack" -> uiR.drawable.ic_snack
+                            else -> uiR.drawable.ic_breakfast
+                        }
+                    ),
+                    contentDescription = mealName
+                )
+            }
             Spacer(Modifier.height(spacing.spaceMedium))
             SearchTextField(
                 modifier = modifier.padding(

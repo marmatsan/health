@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<E : Event> : ViewModel() {
 
-    private val _uiEvent = Channel<UiEvent>()
+    protected val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     protected abstract suspend fun handleEvent(event: E)
