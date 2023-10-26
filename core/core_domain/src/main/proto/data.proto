@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_package = "com.marmatsan.core_domain";
+option java_multiple_files = true;
+
+enum Gender {
+  MALE = 0;
+  FEMALE = 1;
+  UNKNOWN = 2;
+}
+
+enum ActivityLevel {
+  LOW = 0;
+  MEDIUM = 1;
+  HIGH = 2;
+}
+
+enum WeightGoal {
+  LOSE_WEIGHT = 0;
+  KEEP_WEIGHT = 1;
+  GAIN_WEIGHT = 2;
+}
+
+message PreferencesData {
+  Gender gender = 1;
+  int32 age = 2;
+  int32 height = 3;
+  int32 weight = 4;
+  ActivityLevel activityLevel = 5;
+  WeightGoal weightGoal = 6;
+  float carb_ratio = 7;
+  float protein_ratio = 8;
+  float fat_ratio = 9;
+  bool onboardingCompleted = 10;
+}
