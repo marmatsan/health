@@ -1,5 +1,7 @@
 package com.marmatsan.tracker_domain.repository
 
+import com.marmatsan.core_domain.util.Empty
+
 sealed class RequestState<T>(
     open val data: T? = null,
     open val message: String? = null
@@ -14,6 +16,6 @@ sealed class RequestState<T>(
 
     data class Error<T>(
         override val data: T? = null,
-        override val message: String? = null
+        override val message: String = String.Empty
     ) : RequestState<T>(data, message)
 }

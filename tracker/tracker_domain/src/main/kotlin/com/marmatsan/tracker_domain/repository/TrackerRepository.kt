@@ -13,9 +13,9 @@ interface TrackerRepository {
         pageSize: Int
     ): Flow<RequestState<List<TrackableFood>>>
 
-    suspend fun insertTrackedFood(food: TrackedFood)
+    suspend fun insertTrackedFood(trackedFood: TrackedFood)
 
-    suspend fun deleteTrackedFood(food: TrackedFood)
+    suspend fun deleteTrackedFood(trackedFood: TrackedFood)
 
     fun getFoodsFromCurrentDate(localDate: LocalDate): Flow<List<TrackedFood>>
 }

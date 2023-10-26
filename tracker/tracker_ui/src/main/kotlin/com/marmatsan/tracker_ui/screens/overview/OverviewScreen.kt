@@ -82,7 +82,9 @@ fun OverviewScreen(
                 Column(
                     modifier = Modifier.padding(horizontal = spacing.spaceSmall)
                 ) {
-                    state.overviewFoodsState.trackedFoods.forEach { trackedFood ->
+                    state.overviewFoodsState.trackedFoods.filter {
+                        it.meal == mealItem.meal
+                    }.forEach { trackedFood ->
                         TrackedFoodItem(
                             trackedFood = trackedFood,
                             onDeleteClick = {

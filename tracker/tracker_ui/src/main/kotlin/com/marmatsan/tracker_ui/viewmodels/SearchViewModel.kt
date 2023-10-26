@@ -2,6 +2,7 @@ package com.marmatsan.tracker_ui.viewmodels
 
 import androidx.lifecycle.viewModelScope
 import com.marmatsan.core_domain.usecases.FilterOutDigits
+import com.marmatsan.core_domain.util.Empty
 import com.marmatsan.core_domain.util.UiText
 import com.marmatsan.core_ui.event.UiEvent
 import com.marmatsan.core_ui.viewmodel.BaseViewModel
@@ -28,22 +29,41 @@ class SearchViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: SearchEvent) {
         when (event) {
-            is SearchEvent.OnAmountForFoodChange -> TODO()
-
             is SearchEvent.OnQueryChange -> {
                 _state.value = _state.value.copy(query = event.query)
             }
 
             is SearchEvent.OnSearch -> executeSearch()
 
+            is SearchEvent.OnToggleTrackableFood -> {
+                _state.value = _state.value.copy(
+                    trackableFoods = _state.value.trackableFoods.map {
+                        if (it.trackableFood == event.trackableFood) {
+                            it.copy(isExpanded = !it.isExpanded)
+                        } else it
+                    }
+                )
+            }
+
+            is SearchEvent.OnAmountForFoodChange -> {
+                _state.value = _state.value.copy(
+                    trackableFoods = _state.value.trackableFoods.map {
+                        if (it.trackableFood == event.trackableFood) {
+                            it.copy(amount = filterOutDigits(event.amount))
+                        } else it
+                    }
+                )
+            }
+
+            is SearchEvent.OnTrackFoodClick -> {
+                trackFood(event)
+            }
+
             is SearchEvent.OnSearchFocusChange -> {
                 _state.value = _state.value.copy(
                     isHintVisible = !event.isFocused && _state.value.query.isBlank()
                 )
             }
-
-            is SearchEvent.OnToggleTrackableFood -> TODO()
-            is SearchEvent.OnTrackFoodClick -> TODO()
         }
     }
 
@@ -58,7 +78,11 @@ class SearchViewModel @Inject constructor(
                     is RequestState.Error -> {
                         _uiEvent.send(
                             UiEvent.ShowSnackBar(
-                                UiText.StringResource(R.string.error_something_went_wrong)
+                                if (request.message.isEmpty()) {
+                                    UiText.StringResource(R.string.error_something_went_wrong)
+                                } else {
+                                    UiText.DynamicString(request.message)
+                                }
                             )
                         )
                     }
@@ -71,15 +95,28 @@ class SearchViewModel @Inject constructor(
 
                     is RequestState.Success -> {
                         _state.value = _state.value.copy(
-                            query = "",
+                            query = String.Empty,
                             trackableFoods = request.data?.map {
-                                TrackableFoodUiState(it)
+                                TrackableFoodUiState(trackableFood = it)
                             } ?: emptyList(),
                             isSearching = false
                         )
                     }
                 }
             }
+        }
+    }
+
+    private fun trackFood(event: SearchEvent.OnTrackFoodClick) {
+        viewModelScope.launch {
+            val uiState = _state.value.trackableFoods.find { it.trackableFood == event.trackableFood }
+            trackerUseCases.trackFood(
+                trackableFood = uiState?.trackableFood ?: return@launch,
+                amount = uiState.amount.toIntOrNull() ?: return@launch,
+                meal = event.meal,
+                date = event.date
+            )
+            sendSuccessEvent()
         }
     }
 

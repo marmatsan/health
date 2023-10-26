@@ -3,6 +3,7 @@ package com.marmatsan.tracker_data.repository
 import com.marmatsan.tracker_data.local.TrackerDao
 import com.marmatsan.tracker_data.mapper.toTrackableFood
 import com.marmatsan.tracker_data.mapper.toTrackedFood
+import com.marmatsan.tracker_data.mapper.toTrackedFoodEntity
 import com.marmatsan.tracker_data.remote.api.OpenFoodApi
 import com.marmatsan.tracker_domain.models.TrackableFood
 import com.marmatsan.tracker_domain.models.TrackedFood
@@ -43,11 +44,11 @@ class TrackerRepositoryImpl(
         }
     }
 
-    override suspend fun insertTrackedFood(food: TrackedFood) {
-        TODO("Not yet implemented")
+    override suspend fun insertTrackedFood(trackedFood: TrackedFood) {
+        dao.insertTrackedFood(trackedFood.toTrackedFoodEntity())
     }
 
-    override suspend fun deleteTrackedFood(food: TrackedFood) {
+    override suspend fun deleteTrackedFood(trackedFood: TrackedFood) {
         TODO("Not yet implemented")
     }
 

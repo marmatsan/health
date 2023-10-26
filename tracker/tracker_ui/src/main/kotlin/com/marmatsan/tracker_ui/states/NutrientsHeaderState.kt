@@ -10,5 +10,5 @@ data class NutrientsHeaderState(
     val carbsGoal: Int = 0,
     val proteinGoal: Int = 0,
     val fatGoal: Int = 0,
-    val caloriesGoal: Int = 0
+    val caloricGoal: Int = 0
 ) : State

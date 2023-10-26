@@ -44,6 +44,7 @@ fun SearchScreen(
     date: LocalDate,
     onEvent: (SearchEvent) -> Unit,
     uiEvent: Flow<UiEvent>,
+    onNavigateUp: () -> Unit,
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
@@ -55,13 +56,13 @@ fun SearchScreen(
         uiEvent.collect { event ->
             when (event) {
                 is UiEvent.ShowSnackBar -> {
+                    keyboardController?.hide()
                     snackbarHostState.showSnackbar(
                         message = event.message.asString(context)
                     )
-                    keyboardController?.hide()
                 }
 
-                UiEvent.Success -> TODO()
+                is UiEvent.Success -> onNavigateUp()
             }
         }
     }
@@ -116,6 +117,7 @@ fun SearchScreen(
                     onEvent(SearchEvent.OnQueryChange(it))
                 },
                 onSearch = {
+                    keyboardController?.hide()
                     onEvent(SearchEvent.OnSearch)
                 },
                 onFocusChanged = {
@@ -149,16 +151,21 @@ fun SearchScreen(
                         modifier = Modifier.fillMaxWidth(),
                         trackableFoodUiState = trackableFoodUiState,
                         onClick = {
-                            onEvent(SearchEvent.OnToggleTrackableFood((trackableFoodUiState.food)))
+                            onEvent(SearchEvent.OnToggleTrackableFood((trackableFoodUiState.trackableFood)))
                         },
                         onAmountChange = {
-                            onEvent(SearchEvent.OnAmountForFoodChange(food = trackableFoodUiState.food, amount = it))
+                            onEvent(
+                                SearchEvent.OnAmountForFoodChange(
+                                    trackableFood = trackableFoodUiState.trackableFood,
+                                    amount = it
+                                )
+                            )
                         },
                         onTrack = {
                             keyboardController?.hide()
                             onEvent(
                                 SearchEvent.OnTrackFoodClick(
-                                    food = trackableFoodUiState.food,
+                                    trackableFood = trackableFoodUiState.trackableFood,
                                     meal = when (mealName) {
                                         "Breakfast" -> Meal.Breakfast
                                         "Lunch" -> Meal.Lunch
@@ -187,6 +194,7 @@ fun SearchScreenPreview() {
         date = LocalDate.now(),
         onEvent = {},
         uiEvent = flow {},
+        onNavigateUp = {},
         snackbarHostState = SnackbarHostState()
     )
 }

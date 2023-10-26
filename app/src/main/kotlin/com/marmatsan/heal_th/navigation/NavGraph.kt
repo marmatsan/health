@@ -204,6 +204,7 @@ fun SetupNavGraph(
                 date = LocalDate.of(year, month, dayOfMonth),
                 onEvent = viewmodel::onEvent,
                 uiEvent = viewmodel.uiEvent,
+                onNavigateUp = { navController.popBackStack() },
                 snackbarHostState = snackbarHostState
             )
         }

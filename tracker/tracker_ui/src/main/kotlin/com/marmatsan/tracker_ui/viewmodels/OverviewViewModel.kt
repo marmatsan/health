@@ -69,12 +69,14 @@ class OverviewViewModel @Inject constructor(
                 overviewFoodsState.value = overviewFoodsState.value.copy(
                     date = overviewFoodsState.value.date.plusDays(1)
                 )
+                refreshFoods()
             }
 
             is OverviewEvent.OnPreviousDayClick -> {
                 overviewFoodsState.value = overviewFoodsState.value.copy(
                     date = overviewFoodsState.value.date.minusDays(1)
                 )
+                refreshFoods()
             }
         }
     }
@@ -95,7 +97,7 @@ class OverviewViewModel @Inject constructor(
                             carbsGoal = nutrientsResult.data.carbsGoal,
                             proteinGoal = nutrientsResult.data.proteinGoal,
                             fatGoal = nutrientsResult.data.fatGoal,
-                            caloriesGoal = nutrientsResult.data.caloricGoal,
+                            caloricGoal = nutrientsResult.data.caloricGoal,
                         )
                         overviewFoodsState.value = overviewFoodsState.value.copy(
                             trackedFoods = trackedFoods,
@@ -118,7 +120,8 @@ class OverviewViewModel @Inject constructor(
                         )
                     }
                 }
-            }.launchIn(viewModelScope)
+            }
+            .launchIn(viewModelScope)
     }
 
 }
